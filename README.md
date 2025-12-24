@@ -2,13 +2,13 @@
 
 <div align="center">
 
-**📚 算法思维 · 设计模式 · 工程方法论**
+**算法思维 · 设计模式 · 工程方法论**
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Java](https://img.shields.io/badge/Java-21-orange.svg)](https://openjdk.org/)
 [![Maven](https://img.shields.io/badge/Maven-3.9+-red.svg)](https://maven.apache.org/)
 
-[📖 在线阅读](https://WeiJinUp.github.io/daily-coding/) | [💬 交流讨论](https://github.com/WeiJinUp/daily-coding/issues)
+[在线阅读](https://WeiJinUp.github.io/daily-coding/) | [交流讨论](https://github.com/WeiJinUp/daily-coding/issues)
 
 </div>
 
@@ -20,9 +20,9 @@
 
 ### 核心理念
 
-- **📖 知识分享** - 将学习过程中的收获整理成文，帮助他人少走弯路
-- **💡 开源精神** - 所有代码和文档开源，欢迎交流与讨论
-- **🎯 实战导向** - 不仅讲原理，更注重实际应用场景
+- **知识分享** - 将学习过程中的收获整理成文，帮助他人少走弯路
+- **开源精神** - 所有代码和文档开源，欢迎交流与讨论
+- **实战导向** - 不仅讲原理，更注重实际应用场景
 - **🔄 持续更新** - 持续学习，持续沉淀，持续进步
 
 ---
@@ -41,7 +41,7 @@
 
 ---
 
-### 🎨 设计模式
+### 设计模式
 
 深入理解设计模式的本质，结合实际业务场景讲解应用方法。
 
@@ -150,7 +150,7 @@ daily-coding/
 
 - 💬 [GitHub Issues](https://github.com/WeiJinUp/daily-coding/issues) - 提问题、提建议
 - 🐛 [Bug Report](https://github.com/WeiJinUp/daily-coding/issues/new?template=bug_report.md) - 报告 Bug
-- ✨ [Feature Request](https://github.com/WeiJinUp/daily-coding/issues/new?template=feature_request.md) - 提新功能
+- [Feature Request](https://github.com/WeiJinUp/daily-coding/issues/new?template=feature_request.md) - 提新功能
 
 ---
 
@@ -170,8 +170,8 @@ daily-coding/
 
 <div align="center">
 
-**⭐ 如果这个项目对你有帮助，欢迎 Star 支持！**
+**如果这个项目对你有帮助，欢迎 Star 支持！**
 
-Made with ❤️ by [Your Name](https://github.com/WeiJinUp)
+Made with love by [Your Name](https://github.com/WeiJinUp)
 
 </div>
