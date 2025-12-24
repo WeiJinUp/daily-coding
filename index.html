@@ -6,8 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="description" content="全面的算法、设计模式和现代Java特性学习资源">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <link rel="icon" type="image/svg+xml" href="_media/icon.svg">
-  <link rel="alternate icon" href="_media/icon.svg">
+  <link rel="icon" type="image/png" href="https://stardewvalleywiki.com/mediawiki/images/thumb/5/54/Golden_Walnut.png/32px-Golden_Walnut.png">
+  <link rel="alternate icon" href="https://stardewvalleywiki.com/mediawiki/images/thumb/5/54/Golden_Walnut.png/32px-Golden_Walnut.png">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
   
   <!-- 星露谷物语风格字体 -->
@@ -225,11 +225,12 @@
       padding: 0 !important;
       border: none;
       background: transparent !important;
+      position: relative !important;
     }
 
     .search input {
       width: 100% !important;
-      padding: 12px 16px !important;
+      padding: 12px 16px 12px 44px !important;
       border: var(--border-width) solid var(--wood-border) !important;
       border-radius: var(--radius-medium) !important;
       font-family: var(--font-body) !important;
@@ -250,6 +251,25 @@
         inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
       margin: 0 !important;
       transition: all 0.3s ease !important;
+      position: relative !important;
+    }
+
+    /* 搜索图标 - 使用星露谷物语图标 */
+    .search::before {
+      content: '' !important;
+      position: absolute !important;
+      left: 24px !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      width: 20px !important;
+      height: 20px !important;
+      background-image: url('https://stardewvalleywiki.com/mediawiki/images/thumb/0/09/Secret_Note_Icon.png/32px-Secret_Note_Icon.png') !important;
+      background-size: contain !important;
+      background-repeat: no-repeat !important;
+      background-position: center !important;
+      image-rendering: pixelated !important;
+      z-index: 10 !important;
+      pointer-events: none !important;
     }
 
     .search input::placeholder {
@@ -679,24 +699,44 @@
     }
 
     /* H1标题装饰 - 农作物图标 */
+    .markdown-section h1 {
+      position: relative;
+      padding-left: 90px;
+      padding-right: 90px;
+    }
+
     .markdown-section h1::before {
-      content: '🌾';
+      content: '';
       position: absolute;
       left: 10px;
       top: 50%;
       transform: translateY(-50%);
-      font-size: 28px;
+      width: 64px;
+      height: 64px;
+      background-image: url('https://stardewvalleywiki.com/mediawiki/images/6/6f/Wizzard_tower.gif');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      image-rendering: pixelated;
       opacity: 0.7;
+      display: block;
     }
 
     .markdown-section h1::after {
-      content: '🌾';
+      content: '';
       position: absolute;
       right: 10px;
       top: 50%;
       transform: translateY(-50%) scaleX(-1);
-      font-size: 28px;
+      width: 64px;
+      height: 64px;
+      background-image: url('https://stardewvalleywiki.com/mediawiki/images/6/6f/Wizzard_tower.gif');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      image-rendering: pixelated;
       opacity: 0.7;
+      display: block;
     }
 
     .markdown-section h2 {
@@ -1395,6 +1435,14 @@
     /* Docsify 左下角切换按钮 - 使用最高优先级 */
     body button.sidebar-toggle,
     html body button.sidebar-toggle {
+      position: fixed !important;
+      left: 0 !important;
+      bottom: 0 !important;
+      margin: 0 !important;
+      margin-left: 0 !important;
+      margin-bottom: 0 !important;
+      padding-left: 16px !important;
+      padding-right: 16px !important;
       background: linear-gradient(135deg, var(--wood-medium) 0%, var(--wood-dark) 100%) !important;
       background-image: 
         repeating-linear-gradient(90deg, 
@@ -1405,6 +1453,10 @@
         ) !important;
       border: var(--border-width) solid var(--wood-border) !important;
       border-radius: var(--radius-medium) !important;
+      border-bottom-left-radius: 0 !important;
+      border-bottom-right-radius: var(--radius-medium) !important;
+      border-top-left-radius: var(--radius-medium) !important;
+      border-top-right-radius: var(--radius-medium) !important;
       box-shadow: 
         0 3px 6px rgba(0, 0, 0, 0.3),
         inset 0 1px 0 rgba(255, 255, 255, 0.2),
@@ -1416,6 +1468,7 @@
       font-size: 14px !important;
       font-weight: 600 !important;
       text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3) !important;
+      z-index: 30 !important;
     }
 
     body button.sidebar-toggle:hover,
@@ -1470,6 +1523,28 @@
     body button.sidebar-toggle .stardew-toggle-icon {
       transition: transform 0.3s ease !important;
     }
+
+    /* ==================== 点击时锄头图标旋转效果 ==================== */
+    /* 点击时的锄头图标 */
+    .stardew-cursor-click {
+      position: fixed !important;
+      width: 32px !important;
+      height: 32px !important;
+      background-image: url('https://stardewvalleywiki.com/mediawiki/images/thumb/8/87/Hoe.png/32px-Hoe.png') !important;
+      background-size: contain !important;
+      background-repeat: no-repeat !important;
+      background-position: center !important;
+      image-rendering: pixelated !important;
+      pointer-events: none !important;
+      z-index: 99999 !important;
+      transform-origin: 0px 32px !important; /* 左下角 */
+      transition: transform 0.15s ease-out !important;
+      transform: rotate(0deg) !important;
+    }
+
+    .stardew-cursor-click.rotating {
+      transform: rotate(45deg) !important;
+    }
   </style>
 </head>
 <body>
@@ -1495,7 +1570,7 @@
       search: {
         maxAge: 86400000,
         paths: 'auto',
-        placeholder: '🔍 搜索文档',
+        placeholder: '搜索文档',
         noData: '😞 没有找到结果',
         depth: 4,
         hideOtherSidebarContent: false,
@@ -1518,6 +1593,190 @@
       
       // 插件
       plugins: [
+        // 点击时锄头图标旋转效果
+        function(hook, vm) {
+          let cursorElement = null;
+          let isClicking = false;
+
+          function createCursorElement() {
+            if (cursorElement) return cursorElement;
+            
+            cursorElement = document.createElement('div');
+            cursorElement.className = 'stardew-cursor-click';
+            cursorElement.style.display = 'none';
+            document.body.appendChild(cursorElement);
+            return cursorElement;
+          }
+
+          function updateCursorPosition(e) {
+            if (!cursorElement) return;
+            // 以左下角为基准点，让图标出现在鼠标点击位置的左下角
+            // 往左下角移动：left 减小，top 增大
+            cursorElement.style.left = (e.clientX - 24) + 'px';
+            cursorElement.style.top = (e.clientY - 8) + 'px';
+          }
+
+          function handleMouseDown(e) {
+            console.log('handleMouseDown 被调用', e);
+            // 防止重复触发
+            if (isClicking) {
+              console.log('isClicking 为 true，跳过');
+              return;
+            }
+            isClicking = true;
+            
+            // 隐藏鼠标光标 - 使用 !important 覆盖 CSS
+            document.body.style.setProperty('cursor', 'none', 'important');
+            // 同时在 html 元素上也设置
+            document.documentElement.style.setProperty('cursor', 'none', 'important');
+            // 在所有子元素上也设置
+            const allElements = document.querySelectorAll('*');
+            allElements.forEach(function(el) {
+              el.style.setProperty('cursor', 'none', 'important');
+            });
+            
+            const cursor = createCursorElement();
+            if (!cursor) {
+              console.error('无法创建cursor元素');
+              isClicking = false;
+              document.body.style.cursor = '';
+              return;
+            }
+            
+            console.log('cursor 元素:', cursor);
+            console.log('cursor display:', cursor.style.display);
+            
+            // 更新位置
+            updateCursorPosition(e);
+            
+            // 确保元素显示 - 使用 !important 级别的内联样式
+            cursor.style.setProperty('display', 'block', 'important');
+            cursor.style.setProperty('visibility', 'visible', 'important');
+            cursor.style.setProperty('opacity', '1', 'important');
+            cursor.style.setProperty('z-index', '99999', 'important');
+            cursor.style.setProperty('position', 'fixed', 'important');
+            // 以左下角为基准点，让图标出现在鼠标点击位置的左下角
+            // 往左下角移动：left 减小，top 增大
+            cursor.style.setProperty('left', (e.clientX - 24) + 'px', 'important');
+            cursor.style.setProperty('top', (e.clientY - 8) + 'px', 'important');
+            cursor.style.setProperty('width', '32px', 'important');
+            cursor.style.setProperty('height', '32px', 'important');
+            cursor.style.setProperty('background-image', 'url("https://stardewvalleywiki.com/mediawiki/images/thumb/8/87/Hoe.png/32px-Hoe.png")', 'important');
+            cursor.style.setProperty('background-size', 'contain', 'important');
+            cursor.style.setProperty('background-repeat', 'no-repeat', 'important');
+            cursor.style.setProperty('background-position', 'center', 'important');
+            cursor.style.setProperty('image-rendering', 'pixelated', 'important');
+            cursor.style.setProperty('transform-origin', '0px 32px', 'important'); // 左下角
+            cursor.style.setProperty('transition', 'transform 0.15s ease-out', 'important');
+            cursor.style.setProperty('transform', 'rotate(0deg)', 'important');
+            
+            console.log('元素位置 left:', cursor.style.left, 'top:', cursor.style.top);
+            const computedStyle = window.getComputedStyle(cursor);
+            console.log('元素计算样式 display:', computedStyle.display);
+            console.log('元素计算样式 visibility:', computedStyle.visibility);
+            console.log('元素计算样式 opacity:', computedStyle.opacity);
+            console.log('元素计算样式 position:', computedStyle.position);
+            console.log('元素计算样式 z-index:', computedStyle.zIndex);
+            console.log('元素计算样式 left:', computedStyle.left);
+            console.log('元素计算样式 top:', computedStyle.top);
+            console.log('元素计算样式 width:', computedStyle.width);
+            console.log('元素计算样式 height:', computedStyle.height);
+            console.log('元素计算样式 background-image:', computedStyle.backgroundImage);
+            
+            console.log('设置样式后 display:', cursor.style.display);
+            console.log('设置样式后 visibility:', cursor.style.visibility);
+            console.log('设置样式后 opacity:', cursor.style.opacity);
+            
+            // 移除旋转类（如果存在）
+            cursor.classList.remove('rotating');
+            
+            // 强制重排，确保显示
+            void cursor.offsetWidth;
+            
+            // 触发旋转动画（延迟确保元素已显示）
+            setTimeout(function() {
+              if (cursor && isClicking) {
+                console.log('添加 rotating 类');
+                cursor.classList.add('rotating');
+                // 同时直接设置 transform 样式
+                cursor.style.setProperty('transform', 'rotate(45deg)', 'important');
+                console.log('添加后 cursor 类名:', cursor.className);
+                // 再次检查计算样式
+                const finalStyle = window.getComputedStyle(cursor);
+                console.log('添加类后计算样式 transform:', finalStyle.transform);
+                console.log('添加类后计算样式 background-image:', finalStyle.backgroundImage);
+              }
+            }, 10);
+          }
+
+          function handleMouseUp(e) {
+            if (!isClicking) return;
+            isClicking = false;
+            
+            // 恢复鼠标光标 - 移除所有元素的 cursor 样式
+            document.body.style.removeProperty('cursor');
+            document.documentElement.style.removeProperty('cursor');
+            const allElements = document.querySelectorAll('*');
+            allElements.forEach(function(el) {
+              el.style.removeProperty('cursor');
+            });
+            
+            if (cursorElement) {
+              cursorElement.classList.remove('rotating');
+              // 同时移除 transform 样式
+              cursorElement.style.setProperty('transform', 'rotate(0deg)', 'important');
+              // 延迟隐藏，让动画完成
+              setTimeout(function() {
+                if (cursorElement && !isClicking) {
+                  cursorElement.style.setProperty('display', 'none', 'important');
+                  cursorElement.style.setProperty('visibility', 'hidden', 'important');
+                  cursorElement.style.setProperty('opacity', '0', 'important');
+                }
+              }, 200);
+            }
+          }
+
+          function handleMouseMove(e) {
+            if (isClicking && cursorElement) {
+              updateCursorPosition(e);
+            }
+          }
+
+          // 初始化函数
+          function initCursorEffect() {
+            createCursorElement();
+            // 移除旧的事件监听器（如果存在）
+            document.removeEventListener('mousedown', handleMouseDown, true);
+            document.removeEventListener('mouseup', handleMouseUp, true);
+            document.removeEventListener('mousemove', handleMouseMove, true);
+            // 添加新的事件监听器
+            document.addEventListener('mousedown', handleMouseDown, true);
+            document.addEventListener('mouseup', handleMouseUp, true);
+            document.addEventListener('mousemove', handleMouseMove, true);
+            // 调试：确认事件监听器已添加
+            console.log('锄头点击效果已初始化');
+          }
+          
+          // 在多个时机初始化
+          hook.mounted(function() {
+            setTimeout(initCursorEffect, 100);
+          });
+          
+          // 页面加载完成后也初始化
+          if (document.readyState === 'complete') {
+            setTimeout(initCursorEffect, 200);
+          } else {
+            window.addEventListener('load', function() {
+              setTimeout(initCursorEffect, 200);
+            });
+          }
+          
+          // 立即尝试初始化（如果DOM已准备好）
+          if (document.body) {
+            setTimeout(initCursorEffect, 300);
+          }
+          
+        },
         // 优化左下角侧边栏切换按钮
         function(hook, vm) {
           function styleToggleButton() {
@@ -1527,10 +1786,20 @@
               
               // 强制应用样式
               toggleButton.style.cssText += `
+                position: fixed !important;
+                left: 0 !important;
+                bottom: 0 !important;
+                margin: 0 !important;
+                margin-left: 0 !important;
+                margin-bottom: 0 !important;
                 background: linear-gradient(135deg, #8b6f47 0%, #573b28 100%) !important;
                 background-image: repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(87, 59, 40, 0.2) 2px, rgba(87, 59, 40, 0.2) 4px) !important;
                 border: 3px solid #3d2817 !important;
                 border-radius: 12px !important;
+                border-bottom-left-radius: 0 !important;
+                border-bottom-right-radius: 12px !important;
+                border-top-left-radius: 12px !important;
+                border-top-right-radius: 12px !important;
                 box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 -1px 0 rgba(0, 0, 0, 0.2) !important;
                 padding: 10px 12px !important;
                 color: #f5efe5 !important;
@@ -1538,6 +1807,7 @@
                 font-size: 14px !important;
                 font-weight: 600 !important;
                 text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3) !important;
+                z-index: 30 !important;
               `;
               
               // 隐藏原有的三条线
@@ -1760,11 +2030,12 @@
               '介绍': 'https://stardewvalleywiki.com/mediawiki/images/1/16/Speech_bubble.png',
               '算法与数据结构': 'https://stardewvalleywiki.com/mediawiki/images/c/c2/Quests_Icon.png',
               '设计模式': 'https://stardewvalleywiki.com/mediawiki/images/a/a6/Artisan_Icon.png',
-              '工程方法论': 'https://stardewvalleywiki.com/mediawiki/images/d/db/Controls_Icon.png'
+              '工程方法论': 'https://stardewvalleywiki.com/mediawiki/images/d/db/Controls_Icon.png',
+              'GitHub 仓库': 'https://stardewvalleywiki.com/mediawiki/images/a/a8/Community_Center.png'
             };
             
             // 需要排除的链接文本（这些不应该有图标）
-            const excludeTexts = ['关于本站', 'GitHub 仓库', '概述', '解题技巧', '常用算法', '创建型模式', '结构型模式', '行为型模式', '业务分析', '系统设计', '问题解决', '技术决策'];
+            const excludeTexts = ['关于本站', '概述', '解题技巧', '常用算法', '创建型模式', '结构型模式', '行为型模式', '业务分析', '系统设计', '问题解决', '技术决策'];
 
             // 查找所有p标签和一级目录链接（一级类目标题）
             const allP = sidebar.querySelectorAll('p');
@@ -1901,7 +2172,7 @@
               '学习建议': 'https://stardewvalleywiki.com/mediawiki/images/thumb/0/0b/Forester.png/32px-Forester.png',
               '相关资源': 'https://stardewvalleywiki.com/mediawiki/images/thumb/7/70/Time_Icon.png/30px-Time_Icon.png',
               '持续更新': 'https://stardewvalleywiki.com/mediawiki/images/thumb/5/55/All_Seasons_Icon.png/32px-All_Seasons_Icon.png',
-              '创建型模式': 'https://stardewvalleywiki.com/mediawiki/images/thumb/a/ad/Plank_Cabin_Stage_1.png/32px-Plank_Cabin_Stage_1.png',
+              '创建型模式': 'https://stardewvalleywiki.com/mediawiki/images/6/6f/Wizzard_tower.gif',
               '结构型模式': 'https://stardewvalleywiki.com/mediawiki/images/e/e5/Furniture_Icon.png',
               '行为型模式': 'https://stardewvalleywiki.com/mediawiki/images/b/b2/Animals_Icon.png',
               '设计原则': 'https://stardewvalleywiki.com/mediawiki/images/thumb/7/7e/Sturdy_Ring.png/32px-Sturdy_Ring.png',

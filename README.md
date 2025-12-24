@@ -162,7 +162,7 @@ daily-coding/
 
 ## 联系方式
 
-- **作者**：Your Name
+- **作者**：WeiJinUp
 - **邮箱**：your.email@example.com
 - **GitHub**：[@WeiJinUp](https://github.com/WeiJinUp)
 
@@ -172,6 +172,6 @@ daily-coding/
 
 **如果这个项目对你有帮助，欢迎 Star 支持！**
 
-Made with love by [Your Name](https://github.com/WeiJinUp)
+Made with love by [WeiJinUp](https://github.com/WeiJinUp)
 
 </div>
