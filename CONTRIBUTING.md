@@ -126,7 +126,7 @@ package algorithms.leetcode;
  * Time Complexity: O(n)
  * Space Complexity: O(n)
  * 
- * @author Your Name
+ * @author WeiJinUp
  */
 public class TwoSum {
     
