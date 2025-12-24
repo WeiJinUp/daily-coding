@@ -1,127 +1,223 @@
-# 🎨 Design Patterns
+# 设计模式
 
-Classic Gang of Four design patterns implemented in Java, demonstrating best practices for object-oriented software design.
+> 深入理解设计模式，结合实际业务场景应用
 
-## 📖 What Are Design Patterns?
+## 概述
 
-Design patterns are **reusable solutions** to common problems in software design. They represent best practices evolved over time by experienced developers.
+设计模式是软件开发中反复出现的问题的通用解决方案。本模块不仅讲解 23 种经典设计模式的原理和实现，更重要的是**结合实际业务场景**，让你理解：
 
-### Benefits
-- ✅ **Proven solutions**: Battle-tested approaches
-- ✅ **Common vocabulary**: Communicate design ideas effectively
-- ✅ **Flexibility**: Easier to modify and extend code
-- ✅ **Best practices**: Embody SOLID principles
-
-## 🗂️ Pattern Categories
-
-### Creational Patterns (5)
-Focus on **object creation mechanisms**:
-
-| Pattern | Purpose | Use When |
-|---------|---------|----------|
-| **Singleton** | Ensure only one instance exists | Global configuration, logging |
-| **Factory Method** | Create objects without specifying exact class | Object type determined at runtime |
-| **Abstract Factory** | Create families of related objects | Multiple product families |
-| **Builder** | Construct complex objects step-by-step | Many constructor parameters |
-| **Prototype** | Clone existing objects | Object creation is expensive |
-
-### Structural Patterns (7)
-Focus on **object composition**:
-
-| Pattern | Purpose | Use When |
-|---------|---------|----------|
-| **Adapter** | Make incompatible interfaces work together | Integrate legacy code |
-| **Bridge** | Separate abstraction from implementation | Avoid class explosion |
-| **Composite** | Treat individual and composite objects uniformly | Tree structures |
-| **Decorator** | Add responsibilities dynamically | Flexible alternative to subclassing |
-| **Facade** | Provide simplified interface to complex system | Hide complexity |
-| **Flyweight** | Share objects to save memory | Many similar objects |
-| **Proxy** | Control access to another object | Lazy loading, access control |
-
-### Behavioral Patterns (11)
-Focus on **communication between objects**:
-
-| Pattern | Purpose | Use When |
-|---------|---------|----------|
-| **Chain of Responsibility** | Pass request along handler chain | Multiple handlers possible |
-| **Command** | Encapsulate request as object | Queue, log, or undo operations |
-| **Iterator** | Access elements sequentially | Traverse collections |
-| **Mediator** | Centralize complex communications | Reduce coupling |
-| **Memento** | Capture and restore object state | Undo functionality |
-| **Observer** | Notify dependents of state changes | Event-driven systems |
-| **State** | Alter behavior when state changes | State machines |
-| **Strategy** | Encapsulate interchangeable algorithms | Runtime algorithm selection |
-| **Template Method** | Define algorithm skeleton | Subclasses override steps |
-| **Visitor** | Separate algorithm from object structure | Operations on object structures |
-| **Interpreter** | Implement language grammar | Domain-specific languages |
-
-## 📁 Directory Structure
-
-```
-design-patterns/
-├── creational/
-│   ├── singleton/
-│   │   ├── Singleton.java
-│   │   ├── ThreadSafeSingleton.java
-│   │   └── README.md
-│   ├── factory/
-│   └── builder/
-├── structural/
-│   ├── adapter/
-│   ├── decorator/
-│   └── proxy/
-└── behavioral/
-    ├── observer/
-    ├── strategy/
-    └── command/
-```
-
-## 🎯 Implementation Guidelines
-
-Each pattern implementation includes:
-
-1. **Problem Statement**: What problem does this solve?
-2. **UML Diagram**: Visual representation (in comments)
-3. **Implementation**: Clean, commented Java code
-4. **Usage Example**: Practical demonstration
-5. **When to Use/Avoid**: Decision criteria
-
-## 🚀 How to Use
-
-Each pattern directory is self-contained:
-
-```bash
-# Navigate to pattern directory
-cd design-patterns/singleton
-
-# Compile and run
-javac Singleton.java
-java Singleton
-```
-
-## ⚠️ Important Notes
-
-- **Patterns are not silver bullets**: Don't force them where unnecessary
-- **Favor composition over inheritance**: Many patterns demonstrate this
-- **SOLID principles**: Patterns embody these fundamental principles
-- **Context matters**: Same problem, different contexts → different patterns
-
-## 📚 Learning Resources
-
-- *Design Patterns: Elements of Reusable Object-Oriented Software* (Gang of Four)
-- *Head First Design Patterns* by Freeman & Robson
-- [Refactoring.Guru - Design Patterns](https://refactoring.guru/design-patterns)
-- [SourceMaking - Design Patterns](https://sourcemaking.com/design_patterns)
-
-## 🎓 Study Approach
-
-1. **Understand the problem** the pattern solves
-2. **Study the structure** (classes and relationships)
-3. **Implement it yourself** (don't just copy)
-4. **Identify real-world uses** in frameworks you use
-5. **Know when NOT to use it**
+- **为什么需要这个模式？** - 它解决了什么问题
+- **什么时候使用？** - 适用场景和判断标准
+- **如何在项目中应用？** - 实际业务案例
 
 ---
 
-**Remember**: "Patterns are not meant to be converted into code directly. They are templates for solving problems that can be used in many different situations." — Gang of Four
+## 创建型模式
 
+创建型模式关注对象的创建过程，将对象的创建和使用分离。
+
+### 单例模式（Singleton）
+
+**核心思想**：确保一个类只有一个实例，并提供全局访问点。
+
+**业务场景**：
+- **数据库连接池**：应用启动时创建唯一的连接池实例
+- **配置管理器**：全局配置信息只需要一份
+- **日志管理器**：统一的日志记录入口
+- **线程池**：避免重复创建，节省系统资源
+
+**实现方式**：
+- [饿汉式、懒汉式、双重检查锁等 6 种实现](../../src/main/java/designpatterns/singleton/Singleton.java)
+
+**适用场景判断**：
+✅ 当需要全局唯一实例时（如配置、缓存）
+✅ 当频繁创建销毁会影响性能时
+❌ 不适合有状态的对象
+❌ 不适合需要扩展的场景
+
+---
+
+### 工厂模式（Factory）
+
+**核心思想**：定义创建对象的接口，让子类决定实例化哪个类。
+
+**业务场景**：
+- **支付系统**：根据支付方式（微信、支付宝、银行卡）创建不同的支付处理器
+- **消息推送**：根据渠道（短信、邮件、App）创建不同的推送服务
+- **文件解析**：根据文件类型（CSV、JSON、XML）创建对应的解析器
+- **报表生成**：根据格式（PDF、Excel、Word）创建不同的生成器
+
+**实际案例**：
+```java
+// 支付系统示例
+PaymentProcessor processor = PaymentFactory.create(paymentType);
+processor.process(order);
+```
+
+---
+
+### 建造者模式（Builder）
+
+**核心思想**：将复杂对象的构建过程与表示分离。
+
+**业务场景**：
+- **SQL 查询构建器**：灵活组装复杂的查询条件
+- **邮件对象**：设置收件人、主题、内容、附件等
+- **订单对象**：包含商品、地址、优惠券、发票等信息
+- **HTTP 请求**：构建带有各种参数和头信息的请求
+
+---
+
+### 原型模式（Prototype）
+
+**核心思想**：通过复制已有对象创建新对象。
+
+**业务场景**：
+- **订单复制**：用户重复购买，复制上次订单信息
+- **配置复制**：将测试环境配置复制到生产环境
+- **文档模板**：基于模板快速创建新文档
+
+---
+
+## 结构型模式
+
+结构型模式关注类和对象的组合，形成更大的结构。
+
+### 适配器模式（Adapter）
+
+**业务场景**：
+- **第三方 API 集成**：统一不同供应商的接口
+- **数据格式转换**：将旧系统的数据格式转换为新系统格式
+- **支付接口适配**：统一不同支付平台的接口
+
+---
+
+### 装饰器模式（Decorator）
+
+**业务场景**：
+- **权限控制**：在原有功能上增加权限检查
+- **日志记录**：为方法调用添加日志
+- **缓存功能**：为查询添加缓存层
+- **数据过滤**：为数据流添加过滤功能
+
+---
+
+### 代理模式（Proxy）
+
+**业务场景**：
+- **远程代理**：访问远程服务（RPC、HTTP）
+- **虚拟代理**：延迟加载大对象（图片、文件）
+- **保护代理**：控制访问权限
+- **缓存代理**：为昂贵操作添加缓存
+
+---
+
+### 外观模式（Facade）
+
+**业务场景**：
+- **系统集成**：为复杂的子系统提供统一接口
+- **订单处理**：统一调用库存、支付、物流等子系统
+- **用户注册**：封装验证、创建用户、发送邮件等操作
+
+---
+
+## 行为型模式
+
+行为型模式关注对象之间的通信和职责分配。
+
+### 策略模式（Strategy）
+
+**业务场景**：
+- **促销活动**：不同的优惠策略（满减、折扣、赠品）
+- **物流计算**：不同的运费计算方式
+- **会员等级**：不同等级享受不同权益
+- **排序方式**：商品按价格、销量、评分排序
+
+**实际案例**：
+```java
+// 促销策略示例
+PromotionStrategy strategy = getStrategy(promotionType);
+double discount = strategy.calculate(order);
+```
+
+---
+
+### 观察者模式（Observer）
+
+**业务场景**：
+- **事件通知**：订单状态变化通知用户、商家、物流
+- **消息订阅**：用户订阅感兴趣的内容更新
+- **库存预警**：库存不足时通知采购和运营
+- **MQ 消息**：发布-订阅模式
+
+---
+
+### 责任链模式（Chain of Responsibility）
+
+**业务场景**：
+- **审批流程**：请假、报销等多级审批
+- **过滤器链**：请求过滤（认证、授权、限流）
+- **异常处理**：分层处理不同类型的异常
+- **数据校验**：多个校验器依次校验数据
+
+---
+
+### 模板方法模式（Template Method）
+
+**业务场景**：
+- **业务流程**：定义统一的流程框架，子类实现具体步骤
+- **数据导入**：读取→校验→转换→保存的通用流程
+- **测试用例**：setUp→执行→验证→tearDown
+
+---
+
+### 状态模式（State）
+
+**业务场景**：
+- **订单状态机**：待支付→已支付→已发货→已完成
+- **工单流转**：新建→处理中→已解决→已关闭
+- **文档审核**：草稿→待审核→已通过→已发布
+
+---
+
+## 设计原则
+
+### SOLID 原则
+
+1. **单一职责原则（SRP）**：一个类只负责一个功能
+2. **开闭原则（OCP）**：对扩展开放，对修改关闭
+3. **里氏替换原则（LSP）**：子类可以替换父类
+4. **接口隔离原则（ISP）**：接口应小而专
+5. **依赖倒置原则（DIP）**：依赖抽象而非具体实现
+
+### 其他原则
+
+- **迪米特法则**：最少知识原则
+- **组合优于继承**：优先使用组合而非继承
+- **面向接口编程**：依赖接口而非实现
+
+---
+
+## 学习建议
+
+### 学习路径
+
+1. **理解问题**：先理解模式要解决的问题
+2. **学习原理**：搞懂模式的核心思想
+3. **看实际案例**：结合业务场景理解应用
+4. **动手实践**：在项目中尝试使用
+
+### 使用原则
+
+- **不要为了使用而使用**：过度设计会增加复杂度
+- **从简单开始**：先写简单代码，需要时再重构
+- **理解场景**：了解适用场景和限制
+- **团队规范**：保持团队代码风格一致
+
+---
+
+## 持续更新
+
+本模块将持续更新更多设计模式的业务场景案例和实战经验。
+
+如果你有好的案例或建议，欢迎通过 [Issues](https://github.com/WeiJinUp/daily-coding/issues) 分享！
