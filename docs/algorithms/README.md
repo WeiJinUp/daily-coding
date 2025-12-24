@@ -1,63 +1,109 @@
-# 📊 Algorithms & Data Structures
+# 算法与数据结构
 
-This directory contains my solutions to algorithmic problems and implementations of fundamental data structures.
+> LeetCode 刷题心得与解题思路总结
 
-## 📂 Directory Structure
+## 概述
 
-```
-algorithms/
-├── leetcode/          # LeetCode problem solutions
-│   ├── easy/         # Easy difficulty problems
-│   ├── medium/       # Medium difficulty problems
-│   └── hard/         # Hard difficulty problems
-├── sorting/          # Sorting algorithms
-├── searching/        # Searching algorithms
-└── data-structures/  # Data structure implementations
-```
+本模块记录算法学习过程中的思考与总结，包括：
 
-## 🎯 Categories
-
-### LeetCode Solutions
-Organized by difficulty and topic:
-- **Easy**: Foundation building problems
-- **Medium**: Interview-level challenges
-- **Hard**: Advanced algorithmic thinking
-
-Each solution includes:
-- ✅ Problem description and link
-- ✅ Solution approach and intuition
-- ✅ Time and space complexity analysis
-- ✅ Alternative solutions when applicable
-
-### Classic Algorithms
-- **Sorting**: QuickSort, MergeSort, HeapSort, etc.
-- **Searching**: Binary Search, DFS, BFS
-- **Graph**: Dijkstra, Kruskal, Topological Sort
-- **Dynamic Programming**: Classic DP problems
-
-### Data Structures
-From scratch implementations:
-- Arrays, LinkedList, Stack, Queue
-- Trees (Binary, BST, AVL, Red-Black)
-- Heaps, Tries, Graphs
-- Hash Tables
-
-## 📈 Progress Tracker
-
-| Category | Count | Status |
-|----------|-------|--------|
-| Easy | TBD | 🟢 Active |
-| Medium | TBD | 🟡 In Progress |
-| Hard | TBD | 🔴 Planned |
-
-## 🎓 Learning Resources
-
-- [LeetCode](https://leetcode.com)
-- [Big-O Cheat Sheet](https://www.bigocheatsheet.com)
-- *Introduction to Algorithms* by CLRS
-- *Cracking the Coding Interview* by Gayle Laakmann McDowell
+- **解题思路**：如何分析问题，找到突破口
+- **算法模板**：常用算法的代码模板和套路
+- **复杂度分析**：时间和空间复杂度的权衡
+- **心得体会**：刷题过程中的感悟和经验
 
 ---
 
-**Focus**: Understanding the fundamentals and building problem-solving intuition.
+## LeetCode 题解
 
+### 按难度分类
+
+#### 简单题（Easy）
+- [Two Sum（两数之和）](../../src/main/java/algorithms/leetcode/TwoSum.java) - 哈希表的经典应用
+
+#### 中等题（Medium）
+*持续更新中...*
+
+#### 困难题（Hard）
+*持续更新中...*
+
+---
+
+## 解题技巧
+
+### 常用思维模式
+
+1. **双指针技巧**
+   - 对撞指针
+   - 快慢指针
+   - 滑动窗口
+
+2. **递归与回溯**
+   - 树形问题
+   - 排列组合
+   - 路径搜索
+
+3. **动态规划**
+   - 状态定义
+   - 状态转移
+   - 优化技巧
+
+4. **贪心算法**
+   - 局部最优
+   - 贪心策略
+   - 正确性证明
+
+---
+
+## 常用算法
+
+### 排序算法
+- 快速排序
+- 归并排序
+- 堆排序
+
+### 查找算法
+- 二分查找及其变体
+- 哈希查找
+
+### 图算法
+- BFS/DFS
+- 最短路径
+- 拓扑排序
+
+### 字符串算法
+- KMP
+- 字符串哈希
+- Trie 树
+
+---
+
+## 学习建议
+
+### 刷题路线
+
+1. **基础阶段**：从简单题入手，熟悉语法和基本数据结构
+2. **进阶阶段**：中等题为主，掌握常用算法和技巧
+3. **提高阶段**：挑战困难题，锻炼思维能力
+
+### 学习方法
+
+- **先思考再看答案**：独立思考 15-30 分钟
+- **理解而非记忆**：搞懂原理比记住代码更重要
+- **总结归纳**：相同类型的题目要总结规律
+- **定期复习**：温故而知新，加深理解
+
+---
+
+## 相关资源
+
+- [LeetCode 官网](https://leetcode.com/)
+- [LeetCode 中国](https://leetcode.cn/)
+- [代码随想录](https://programmercarl.com/)
+
+---
+
+## 持续更新
+
+本模块将持续更新，记录每一道题的解题过程和思考。
+
+如果你有更好的解法或建议，欢迎通过 [Issues](https://github.com/WeiJinUp/daily-coding/issues) 交流！

@@ -1,158 +1,75 @@
-# 文档导航
+# Daily Coding Practice
 
-欢迎来到 Daily Coding Practice 学习资源库！
+> 📚 分享算法思维、设计模式与工程方法论
 
-## 介绍
+## 关于本站
 
-本项目是一个全面的学习资源集合，涵盖算法、设计模式和现代 Java 特性。所有代码都经过精心设计，包含详细的文档注释和完整的单元测试。
+这是一个专注于**技术学习与知识分享**的个人博客，记录在算法学习、系统设计、工程实践中的思考与总结。
 
-## 快速导航
+### 核心理念
 
-### 🧮 [算法与数据结构](algorithms/)
-
-深入学习经典算法问题，包含 LeetCode 热门题目和详细的时间/空间复杂度分析。
-
-**当前内容：**
-- ✅ Two Sum（两数之和）- 多种解法对比
-- 📊 性能分析与最佳实践
-
-### 🎨 [设计模式](design-patterns/)
-
-掌握 23 种 GoF 设计模式，理解面向对象设计原则。
-
-**当前内容：**
-- ✅ Singleton（单例模式）- 6 种实现方式
-- 📖 详细的使用场景和最佳实践
-
-### ☕ [Java 特性](java-features/)
-
-探索现代 Java 的强大特性，从 Java 8 到 Java 21。
-
-**当前内容：**
-- ✅ Java 21 Virtual Threads（虚拟线程）
-- 🚀 性能对比与并发编程
-
-### 🛠️ [工具类库](utilities/)
-
-实用的工具类和辅助函数，提升开发效率。
-
-**规划中**，即将推出。
-
-## 项目特色
-
-### 代码质量
-
-- **生产级标准**：遵循 SOLID 原则和最佳实践
-- **详细注释**：每个方法都有完整的 JavaDoc
-- **性能分析**：包含时间和空间复杂度说明
-
-### 测试覆盖
-
-- **单元测试**：31+ 个测试用例
-- **测试框架**：JUnit 5 + AssertJ + Mockito
-- **持续集成**：GitHub Actions 自动化测试
-
-### 文档完善
-
-- **Markdown 文档**：清晰的学习资料
-- **代码示例**：可运行的演示代码
-- **在线阅读**：优雅的文档网站
-
-## 快速开始
-
-### 克隆项目
-
-```bash
-git clone https://github.com/yourusername/daily-coding.git
-cd daily-coding
-```
-
-### 运行代码
-
-```bash
-# 编译项目
-mvn compile
-
-# 运行测试
-mvn test
-
-# 运行示例
-mvn exec:java -Dexec.mainClass="algorithms.leetcode.TwoSum"
-```
-
-### 浏览文档
-
-在本地启动文档服务器：
-
-```bash
-python3 -m http.server 8000
-```
-
-然后访问 `http://localhost:8000`
-
-## 学习建议
-
-### 初学者路线
-
-1. 从 [算法基础](algorithms/) 开始
-2. 学习 [设计模式基础](design-patterns/)
-3. 探索 [Java 特性](java-features/)
-
-### 进阶路线
-
-1. 深入研究算法的时间复杂度优化
-2. 掌握设计模式的实际应用场景
-3. 学习 Java 21 的新特性和性能优化
-
-### 学习方法
-
-> **理论与实践相结合**
-
-- 📖 阅读文档理解概念
-- 💻 运行代码观察效果
-- ✍️ 修改代码加深理解
-- 🧪 编写测试验证掌握程度
-
-## 技术栈
-
-| 类别 | 技术 |
-|------|------|
-| 语言 | Java 21 |
-| 构建工具 | Maven 3.9+ |
-| 测试框架 | JUnit 5, AssertJ, Mockito |
-| 文档 | Docsify, Markdown |
-| CI/CD | GitHub Actions |
-
-## 参与贡献
-
-我们欢迎各种形式的贡献！
-
-### 如何贡献
-
-1. Fork 本仓库
-2. 创建特性分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 开启 Pull Request
-
-### 贡献指南
-
-详细的贡献流程请查看 [CONTRIBUTING.md](../CONTRIBUTING.md)
-
-## 联系方式
-
-- **GitHub**: [@yourusername](https://github.com/yourusername)
-- **Email**: your.email@example.com
-- **Issues**: [提交问题](https://github.com/yourusername/daily-coding/issues)
-
-## 许可证
-
-本项目采用 MIT 许可证 - 详情请查看 [LICENSE](../LICENSE) 文件
+- **📖 知识分享** - 将学习过程中的收获整理成文，帮助他人少走弯路
+- **💡 开源精神** - 所有代码和文档开源，欢迎交流与讨论
+- **🎯 实战导向** - 不仅讲原理，更注重实际应用场景
+- **🔄 持续更新** - 持续学习，持续沉淀，持续进步
 
 ---
 
-## 致谢
+## 内容导航
 
-感谢所有为本项目做出贡献的开发者！
+### 🧮 [算法与数据结构](algorithms/)
 
-⭐ 如果这个项目对你有帮助，请给我们一个 Star！
+记录 LeetCode 刷题过程中的解题思路、心得体会与知识总结。
+
+- 按题型分类的解题技巧
+- 常用算法模板与套路
+- 复杂度分析与优化思路
+
+### 🎨 [设计模式](design-patterns/)
+
+深入理解设计模式的本质，结合实际业务场景讲解应用方法。
+
+- 23 种设计模式详解
+- 实际业务场景应用案例
+- 设计原则与最佳实践
+
+### 💼 [工程方法论](methodology/)
+
+工作与学习中沉淀的业务理解与解决问题的方法论。
+
+- 通用业务分析框架
+- 系统设计思维模型
+- 问题解决方法论
+
+---
+
+## 技术栈
+
+- **语言**：Java 21
+- **构建**：Maven
+- **测试**：JUnit 5
+- **文档**：Markdown + Docsify
+
+---
+
+## 交流与贡献
+
+如果你：
+- 发现内容错误或有更好的解法
+- 想要补充新的案例或场景
+- 有任何问题或建议
+
+欢迎通过 [Issues](https://github.com/WeiJinUp/daily-coding/issues) 交流讨论！
+
+---
+
+## 许可证
+
+本项目采用 [MIT License](../LICENSE) 开源协议，欢迎学习和分享。
+
+---
+
+<div align="center">
+  <p>⭐ 如果对你有帮助，欢迎 Star 支持</p>
+  <p>📧 联系方式：your.email@example.com</p>
+</div>

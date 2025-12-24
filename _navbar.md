@@ -5,5 +5,5 @@
   * [工具类](docs/utilities/)
 
 * 链接
-  * [GitHub](https://github.com/yourusername/daily-coding)
+  * [GitHub](https://github.com/WeiJinUp/daily-coding)
   * [贡献指南](CONTRIBUTING.md)
