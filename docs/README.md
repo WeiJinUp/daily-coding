@@ -2,7 +2,7 @@
 
 > 分享算法思维、设计模式与工程方法论
 
-## 关于本站
+## 关于本站 <span id="about-sprite-container" data-stardew-sprite data-config="brown-chicken"></span>
 
 这是一个专注于**技术学习与知识分享**的个人博客，记录在算法学习、系统设计、工程实践中的思考与总结。
 

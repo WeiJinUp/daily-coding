@@ -3263,10 +3263,27 @@
               }
             }, 300);
           });
+        },
+        // 星露谷物语精灵动画初始化
+        function(hook, vm) {
+          hook.doneEach(function() {
+            // 页面内容更新后，初始化精灵动画
+            if (typeof window.initStardewSprites === 'function') {
+              setTimeout(function() {
+                window.initStardewSprites();
+              }, 100);
+            }
+          });
         }
       ]
     }
   </script>
+  
+  <!-- 星露谷物语精灵图配置管理 -->
+  <script src="_media/stardew-sprite-config.js"></script>
+  
+  <!-- 星露谷物语精灵动画脚本 -->
+  <script src="_media/stardew-sprite-animation.js"></script>
   
   <!-- Docsify 核心 -->
   <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
