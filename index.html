@@ -5,7 +5,10 @@
   <title>Daily Coding Practice | 算法、设计模式与 Java 特性</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="description" content="全面的算法、设计模式和现代Java特性学习资源">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="icon" type="image/png" href="https://stardewvalleywiki.com/mediawiki/images/thumb/5/54/Golden_Walnut.png/32px-Golden_Walnut.png">
   <link rel="alternate icon" href="https://stardewvalleywiki.com/mediawiki/images/thumb/5/54/Golden_Walnut.png/32px-Golden_Walnut.png">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
@@ -88,6 +91,16 @@
       margin: 0;
       padding: 0;
       overflow: hidden; /* 防止body滚动，只有.content滚动 */
+    }
+    
+    /* 移动端：确保 body 可以滚动（如果需要） */
+    @media screen and (max-width: 768px) {
+      body {
+        overflow: hidden !important;
+        position: fixed !important;
+        width: 100% !important;
+        height: 100% !important;
+      }
     }
     
     /* 自定义鼠标光标 - 星露谷物语锄头（朝左） */
@@ -713,7 +726,7 @@
       transform: translateY(-50%);
       width: 64px;
       height: 64px;
-      background-image: url('https://stardewvalleywiki.com/mediawiki/images/6/6f/Wizzard_tower.gif');
+      background-image: url('https://stardewvalleywiki.com/mediawiki/images/thumb/0/0b/Forester.png/32px-Forester.png');
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
@@ -730,7 +743,7 @@
       transform: translateY(-50%) scaleX(-1);
       width: 64px;
       height: 64px;
-      background-image: url('https://stardewvalleywiki.com/mediawiki/images/6/6f/Wizzard_tower.gif');
+      background-image: url('https://stardewvalleywiki.com/mediawiki/images/thumb/0/0b/Forester.png/32px-Forester.png');
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
@@ -1333,51 +1346,249 @@
       color: #d16969;
     }
 
+    /* ==================== 移动端遮罩层 ==================== */
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 15;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .sidebar-overlay.show {
+      display: block;
+      opacity: 1;
+    }
+
     /* ==================== 响应式设计 ==================== */
     @media screen and (max-width: 768px) {
       :root {
-        --sidebar-width: 260px;
+        --sidebar-width: 280px;
       }
 
+      /* 移动端：侧边栏默认完全隐藏 */
       .sidebar {
-        transform: translateX(-100%);
-        transition: transform 0.3s ease;
+        transition: transform 0.3s ease !important;
+        z-index: 20 !important;
+        box-shadow: 4px 0 12px rgba(0, 0, 0, 0.3) !important;
+        position: fixed !important;
+        left: 0 !important;
+        width: var(--sidebar-width) !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+      }
+      
+      /* 移动端：侧边栏默认隐藏（只在没有 close 类时） */
+      body:not(.close) .sidebar {
+        transform: translateX(-100%) !important;
       }
 
+      /* 侧边栏打开时显示 */
       body.close .sidebar {
-        transform: translateX(0);
+        transform: translateX(0) !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+      }
+      
+      /* 确保侧边栏内容可见 */
+      body.close .sidebar .sidebar-nav,
+      body.close .sidebar .sidebar-nav ul,
+      body.close .sidebar .sidebar-nav li,
+      body.close .sidebar .sidebar-nav a {
+        visibility: visible !important;
+        opacity: 1 !important;
+        display: block !important;
+      }
+      
+      /* 确保侧边栏所有子元素可见 */
+      body.close .sidebar * {
+        visibility: visible !important;
+        opacity: 1 !important;
+      }
+      
+      /* 侧边栏标题和搜索框 */
+      body.close .sidebar > h1,
+      body.close .sidebar .search,
+      body.close .sidebar .search input {
+        visibility: visible !important;
+        opacity: 1 !important;
+        display: block !important;
       }
 
+      /* 侧边栏打开时显示遮罩 */
+      body.close .sidebar-overlay {
+        display: block !important;
+        opacity: 1 !important;
+      }
+
+      /* 移动端：内容区域占据全屏 */
       .content {
-        left: 0;
-        width: 100%;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        transition: transform 0.3s ease !important;
+        position: fixed !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        -webkit-overflow-scrolling: touch !important;
+      }
+
+      /* 侧边栏打开时，内容区域向右移动（但不要移动太多，避免内容被遮挡） */
+      body.close .content {
+        transform: translateX(var(--sidebar-width)) !important;
+        overflow: hidden !important;
       }
 
       main {
-        padding: 24px 20px 48px;
-        max-width: 100%;
-        margin: 0;
+        padding: 20px 16px 48px !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
+        border-left: none !important;
+        border-right: none !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
       }
 
       section.cover h1 {
-        font-size: 2.5rem;
+        font-size: 2rem;
       }
       
       section.cover .cover-main {
-        padding: 2rem 1.5rem;
-        margin: 0 1rem;
+        padding: 1.5rem 1rem;
+        margin: 0 0.5rem;
       }
 
       .markdown-section h1 {
-        font-size: 2rem;
+        font-size: 1.75rem;
+        padding: 16px 20px;
       }
 
       .markdown-section h2 {
-        font-size: 1.5rem;
+        font-size: 1.35rem;
+        padding: 12px 16px 12px 40px;
+      }
+
+      .markdown-section h3 {
+        font-size: 1.1rem;
       }
 
       .progress {
         left: 0;
+      }
+
+      /* 移动端侧边栏切换按钮更大更明显，扩大点击区域 */
+      body button.sidebar-toggle,
+      html body button.sidebar-toggle {
+        position: fixed !important;
+        left: 0 !important;
+        bottom: 0 !important;
+        width: 64px !important;
+        height: 64px !important;
+        padding: 8px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        min-width: 64px !important;
+        min-height: 64px !important;
+        z-index: 9999 !important;
+        -webkit-tap-highlight-color: rgba(127, 186, 0, 0.3) !important;
+        touch-action: manipulation !important;
+        pointer-events: auto !important;
+        cursor: pointer !important;
+        user-select: none !important;
+        -webkit-user-select: none !important;
+        /* 扩大点击区域，使用伪元素增加可点击范围 */
+        box-sizing: border-box !important;
+      }
+      
+      /* 使用伪元素扩大点击区域 */
+      body button.sidebar-toggle::after,
+      html body button.sidebar-toggle::after {
+        content: '' !important;
+        position: absolute !important;
+        top: -10px !important;
+        left: -10px !important;
+        right: -10px !important;
+        bottom: -10px !important;
+        z-index: -1 !important;
+        pointer-events: auto !important;
+      }
+
+      /* 确保按钮图标在移动端可见 */
+      body button.sidebar-toggle::before,
+      html body button.sidebar-toggle::before {
+        width: 32px !important;
+        height: 32px !important;
+      }
+
+      /* 移动端链接和按钮触摸优化 */
+      a, button, .sidebar-nav a, section.cover a {
+        -webkit-tap-highlight-color: rgba(127, 186, 0, 0.3) !important;
+        touch-action: manipulation !important;
+        min-height: 44px !important;
+        min-width: 44px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
+
+      /* 侧边栏链接在移动端更大 */
+      .sidebar-nav > ul > li > a {
+        padding: 16px 20px !important;
+        font-size: 16px !important;
+        min-height: 48px !important;
+      }
+
+      .sidebar-nav ul ul a {
+        padding: 12px 16px 12px 36px !important;
+        font-size: 15px !important;
+        min-height: 44px !important;
+      }
+
+      /* 搜索框在移动端优化 */
+      .search input {
+        padding: 14px 16px 14px 48px !important;
+        font-size: 16px !important;
+        min-height: 48px !important;
+      }
+
+      /* 封面页按钮在移动端优化 */
+      section.cover .cover-main > p:last-child a {
+        padding: 16px 24px !important;
+        font-size: 1rem !important;
+        min-height: 48px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
+    }
+
+    /* 触摸设备优化 */
+    @media (hover: none) and (pointer: coarse) {
+      /* 移除悬停效果，使用点击效果 */
+      .sidebar-nav > ul > li > a:hover,
+      .sidebar-nav ul ul a:hover,
+      section.cover .cover-main > p:last-child a:hover {
+        transform: none;
+      }
+
+      .sidebar-nav > ul > li > a:active,
+      .sidebar-nav ul ul a:active {
+        transform: scale(0.98);
+        opacity: 0.8;
+      }
+
+      /* 确保所有可点击元素都有足够的触摸区域 */
+      a, button {
+        min-height: 44px;
+        min-width: 44px;
       }
     }
 
@@ -1441,8 +1652,11 @@
       margin: 0 !important;
       margin-left: 0 !important;
       margin-bottom: 0 !important;
-      padding-left: 16px !important;
-      padding-right: 16px !important;
+      padding: 12px !important;
+      min-width: 64px !important;
+      min-height: 64px !important;
+      width: auto !important;
+      height: auto !important;
       background: linear-gradient(135deg, var(--wood-medium) 0%, var(--wood-dark) 100%) !important;
       background-image: 
         repeating-linear-gradient(90deg, 
@@ -1549,6 +1763,8 @@
 </head>
 <body>
   <div id="app">正在加载...</div>
+  <!-- 移动端侧边栏遮罩层 -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
   
   <script>
     window.$docsify = {
@@ -1557,14 +1773,17 @@
       coverpage: true,
       onlyCover: false,
       loadSidebar: true,
-      loadNavbar: false,  // 禁用顶部导航
+      loadNavbar: false,
       auto2top: true,
-      maxLevel: 3,  // 自动提取标题的最大层级（h1-h3）
-      subMaxLevel: 3,  // 子页面的最大层级
-      mergeNavbar: false,  // 不合并导航栏
+      maxLevel: 4,
+      subMaxLevel: 4,
+      mergeNavbar: false,
       alias: {
-        '/.*/_sidebar.md': '/_sidebar.md'  // 所有页面使用同一个侧边栏
+        '/.*/_sidebar.md': '/_sidebar.md'
       },
+      sidebarDisplayLevel: 1,
+      relativePath: false,  // 使用绝对路径
+      notFoundPage: false,
       
       // 搜索配置
       search: {
@@ -1593,10 +1812,174 @@
       
       // 插件
       plugins: [
+        // 移动端初始化：确保侧边栏默认隐藏
+        function(hook, vm) {
+          function ensureSidebarContentVisible() {
+            const sidebar = document.querySelector('.sidebar');
+            if (!sidebar) return;
+            
+            // 确保侧边栏本身可见
+            sidebar.style.visibility = 'visible';
+            sidebar.style.opacity = '1';
+            
+            // 确保所有子元素可见
+            const allElements = sidebar.querySelectorAll('*');
+            allElements.forEach(function(el) {
+              const computedStyle = window.getComputedStyle(el);
+              // 如果元素被隐藏，强制显示
+              if (computedStyle.visibility === 'hidden' || computedStyle.opacity === '0' || computedStyle.display === 'none') {
+                el.style.visibility = 'visible';
+                el.style.opacity = '1';
+                if (computedStyle.display === 'none' && el.tagName !== 'SCRIPT' && el.tagName !== 'STYLE') {
+                  el.style.display = '';
+                }
+              }
+            });
+            
+            // 特别确保导航内容可见
+            const sidebarNav = sidebar.querySelector('.sidebar-nav');
+            if (sidebarNav) {
+              sidebarNav.style.visibility = 'visible';
+              sidebarNav.style.opacity = '1';
+              sidebarNav.style.display = 'block';
+            }
+            
+            // 确保标题可见
+            const sidebarTitle = sidebar.querySelector('h1');
+            if (sidebarTitle) {
+              sidebarTitle.style.visibility = 'visible';
+              sidebarTitle.style.opacity = '1';
+              sidebarTitle.style.display = 'block';
+            }
+            
+            // 确保搜索框可见
+            const searchBox = sidebar.querySelector('.search');
+            if (searchBox) {
+              searchBox.style.visibility = 'visible';
+              searchBox.style.opacity = '1';
+              searchBox.style.display = 'block';
+            }
+          }
+          
+          let mobileSidebarInitialized = false;
+          
+          function initMobileSidebar() {
+            // 检测是否为移动设备
+            const isMobile = window.matchMedia('(max-width: 768px)').matches;
+            
+            if (isMobile) {
+              // 只在首次初始化时执行，避免重复调用导致闪烁
+              if (mobileSidebarInitialized) {
+                return;
+              }
+              
+              const sidebar = document.querySelector('.sidebar');
+              if (sidebar) {
+                // 直接设置为隐藏状态，但保持可见性让 Docsify 加载内容
+                sidebar.style.transform = 'translateX(-100%)';
+                sidebar.style.visibility = 'visible'; // 保持可见，让 Docsify 可以加载内容
+                sidebar.style.opacity = '1';
+                sidebar.style.position = 'fixed';
+                sidebar.style.left = '0';
+                sidebar.style.zIndex = '20';
+                
+                // 确保内容可见（即使侧边栏在屏幕外）
+                ensureSidebarContentVisible();
+                
+                mobileSidebarInitialized = true;
+              }
+              
+              // 确保内容区域占据全屏
+              const content = document.querySelector('.content');
+              if (content) {
+                content.style.left = '0';
+                content.style.width = '100%';
+                content.style.position = 'fixed';
+                content.style.overflowY = 'auto';
+                content.style.overflowX = 'hidden';
+                content.style.webkitOverflowScrolling = 'touch';
+              }
+              
+              // 确保 body 没有 close 类（侧边栏关闭状态）
+              if (document.body.classList.contains('close')) {
+                document.body.classList.remove('close');
+              }
+            } else {
+              // 桌面端：重置标志，确保桌面端正常显示
+              mobileSidebarInitialized = false;
+              
+              const sidebar = document.querySelector('.sidebar');
+              if (sidebar) {
+                sidebar.style.transform = '';
+                sidebar.style.visibility = 'visible';
+                sidebar.style.opacity = '1';
+                ensureSidebarContentVisible();
+              }
+            }
+          }
+          
+          // 等待 Docsify 完全加载后再初始化
+          hook.ready(function() {
+            // 只初始化一次，避免闪烁
+            setTimeout(initMobileSidebar, 100);
+            setTimeout(ensureSidebarContentVisible, 500);
+          });
+          
+          hook.mounted(function() {
+            // 只初始化一次，避免闪烁
+            setTimeout(initMobileSidebar, 100);
+            setTimeout(ensureSidebarContentVisible, 500);
+          });
+          
+          hook.doneEach(function() {
+            // 页面切换时只更新内容可见性，不重新初始化
+            const isMobile = window.matchMedia('(max-width: 768px)').matches;
+            if (isMobile) {
+              setTimeout(ensureSidebarContentVisible, 300);
+            }
+          });
+          
+          // 监听侧边栏打开事件
+          hook.afterEach(function() {
+            setTimeout(ensureSidebarContentVisible, 200);
+          });
+          
+          // 监听窗口大小变化
+          let resizeTimeout;
+          window.addEventListener('resize', function() {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(function() {
+              // 重置初始化标志，允许重新初始化
+              mobileSidebarInitialized = false;
+              initMobileSidebar();
+              setTimeout(ensureSidebarContentVisible, 200);
+            }, 200);
+          });
+          
+          // 监听 body class 变化（侧边栏打开/关闭）
+          const bodyObserver = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+              if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                const isMobile = window.matchMedia('(max-width: 768px)').matches;
+                if (isMobile && document.body.classList.contains('close')) {
+                  // 侧边栏打开时，确保内容可见
+                  setTimeout(ensureSidebarContentVisible, 100);
+                  setTimeout(ensureSidebarContentVisible, 300);
+                }
+              }
+            });
+          });
+          
+          bodyObserver.observe(document.body, {
+            attributes: true,
+            attributeFilter: ['class']
+          });
+        },
         // 点击时锄头图标旋转效果
         function(hook, vm) {
           let cursorElement = null;
           let isClicking = false;
+          let clickStartTime = 0; // 记录点击开始时间
 
           function createCursorElement() {
             if (cursorElement) return cursorElement;
@@ -1617,13 +2000,88 @@
           }
 
           function handleMouseDown(e) {
-            console.log('handleMouseDown 被调用', e);
-            // 防止重复触发
-            if (isClicking) {
-              console.log('isClicking 为 true，跳过');
+            // 🔥 关键修复：如果点击的是链接或按钮，不显示光标效果
+            const target = e.target;
+            const isClickable = target.tagName === 'A' || 
+                               target.tagName === 'BUTTON' || 
+                               target.closest('a') || 
+                               target.closest('button') ||
+                               target.classList.contains('search') ||
+                               target.closest('.search');
+            
+            if (isClickable) {
+              // 点击的是可交互元素，不显示光标效果，让浏览器原生处理
               return;
             }
+            
+            // 记录点击开始时间
+            clickStartTime = Date.now();
+            
+            // 如果正在进行上一次点击动画，立即结束它
+            if (isClicking) {
+              handleClickEnd();
+            }
+            
             isClicking = true;
+            handleClickStart(e);
+            
+            // ⚠️ 重要：不要阻止事件传播，让链接可以正常点击
+            // 不调用 e.preventDefault() 或 e.stopPropagation()
+          }
+
+          function handleMouseUp(e) {
+            if (!isClicking) return;
+            
+            // 计算点击持续时间
+            const clickDuration = Date.now() - clickStartTime;
+            
+            // 对于快速点击（< 150ms），立即结束动画
+            // 对于长按，保持动画时间
+            if (clickDuration < 150) {
+              // 快速点击：立即结束
+              handleClickEnd();
+            } else {
+              // 正常点击：稍作延迟
+              setTimeout(handleClickEnd, 50);
+            }
+            
+            // ⚠️ 重要：不要阻止事件传播
+          }
+
+          function handleTouchStart(e) {
+            // 🔥 关键修复：触摸事件也要检查是否是可交互元素
+            const target = e.target;
+            const isClickable = target.tagName === 'A' || 
+                               target.tagName === 'BUTTON' || 
+                               target.closest('a') || 
+                               target.closest('button') ||
+                               target.classList.contains('search') ||
+                               target.closest('.search');
+            
+            if (isClickable) {
+              // 点击的是可交互元素，不显示光标效果
+              return;
+            }
+            
+            // 触摸事件处理
+            // 记录触摸开始时间
+            clickStartTime = Date.now();
+            
+            // 如果正在进行上一次点击动画，立即结束它
+            if (isClicking) {
+              handleClickEnd();
+            }
+            
+            isClicking = true;
+            const touch = e.touches[0];
+            const touchEvent = {
+              clientX: touch.clientX,
+              clientY: touch.clientY
+            };
+            handleClickStart(touchEvent);
+          }
+
+          function handleClickStart(e) {
             
             // 隐藏鼠标光标 - 使用 !important 覆盖 CSS
             document.body.style.setProperty('cursor', 'none', 'important');
@@ -1637,14 +2095,10 @@
             
             const cursor = createCursorElement();
             if (!cursor) {
-              console.error('无法创建cursor元素');
               isClicking = false;
               document.body.style.cursor = '';
               return;
             }
-            
-            console.log('cursor 元素:', cursor);
-            console.log('cursor display:', cursor.style.display);
             
             // 更新位置
             updateCursorPosition(e);
@@ -1670,23 +2124,6 @@
             cursor.style.setProperty('transition', 'transform 0.15s ease-out', 'important');
             cursor.style.setProperty('transform', 'rotate(0deg)', 'important');
             
-            console.log('元素位置 left:', cursor.style.left, 'top:', cursor.style.top);
-            const computedStyle = window.getComputedStyle(cursor);
-            console.log('元素计算样式 display:', computedStyle.display);
-            console.log('元素计算样式 visibility:', computedStyle.visibility);
-            console.log('元素计算样式 opacity:', computedStyle.opacity);
-            console.log('元素计算样式 position:', computedStyle.position);
-            console.log('元素计算样式 z-index:', computedStyle.zIndex);
-            console.log('元素计算样式 left:', computedStyle.left);
-            console.log('元素计算样式 top:', computedStyle.top);
-            console.log('元素计算样式 width:', computedStyle.width);
-            console.log('元素计算样式 height:', computedStyle.height);
-            console.log('元素计算样式 background-image:', computedStyle.backgroundImage);
-            
-            console.log('设置样式后 display:', cursor.style.display);
-            console.log('设置样式后 visibility:', cursor.style.visibility);
-            console.log('设置样式后 opacity:', cursor.style.opacity);
-            
             // 移除旋转类（如果存在）
             cursor.classList.remove('rotating');
             
@@ -1696,21 +2133,32 @@
             // 触发旋转动画（延迟确保元素已显示）
             setTimeout(function() {
               if (cursor && isClicking) {
-                console.log('添加 rotating 类');
                 cursor.classList.add('rotating');
                 // 同时直接设置 transform 样式
                 cursor.style.setProperty('transform', 'rotate(45deg)', 'important');
-                console.log('添加后 cursor 类名:', cursor.className);
-                // 再次检查计算样式
-                const finalStyle = window.getComputedStyle(cursor);
-                console.log('添加类后计算样式 transform:', finalStyle.transform);
-                console.log('添加类后计算样式 background-image:', finalStyle.backgroundImage);
               }
             }, 10);
           }
 
-          function handleMouseUp(e) {
+          function handleTouchEnd(e) {
             if (!isClicking) return;
+            
+            // 计算触摸持续时间
+            const touchDuration = Date.now() - clickStartTime;
+            
+            // 对于快速点击（< 150ms），立即结束动画
+            if (touchDuration < 150) {
+              handleClickEnd();
+            } else {
+              setTimeout(handleClickEnd, 50);
+            }
+          }
+
+          function handleClickEnd() {
+            if (!isClicking) return;
+            
+            // 立即重置 isClicking 标志，允许下次点击
+            // 这样可以支持快速连续点击
             isClicking = false;
             
             // 恢复鼠标光标 - 移除所有元素的 cursor 样式
@@ -1732,13 +2180,24 @@
                   cursorElement.style.setProperty('visibility', 'hidden', 'important');
                   cursorElement.style.setProperty('opacity', '0', 'important');
                 }
-              }, 200);
+              }, 150); // 缩短延迟时间，从 200ms 改为 150ms
             }
           }
 
           function handleMouseMove(e) {
             if (isClicking && cursorElement) {
               updateCursorPosition(e);
+            }
+          }
+
+          function handleTouchMove(e) {
+            if (isClicking && cursorElement && e.touches.length > 0) {
+              const touch = e.touches[0];
+              const touchEvent = {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+              };
+              updateCursorPosition(touchEvent);
             }
           }
 
@@ -1749,12 +2208,19 @@
             document.removeEventListener('mousedown', handleMouseDown, true);
             document.removeEventListener('mouseup', handleMouseUp, true);
             document.removeEventListener('mousemove', handleMouseMove, true);
+            document.removeEventListener('touchstart', handleTouchStart, true);
+            document.removeEventListener('touchend', handleTouchEnd, true);
+            document.removeEventListener('touchmove', handleTouchMove, true);
+            
             // 添加新的事件监听器
-            document.addEventListener('mousedown', handleMouseDown, true);
-            document.addEventListener('mouseup', handleMouseUp, true);
-            document.addEventListener('mousemove', handleMouseMove, true);
-            // 调试：确认事件监听器已添加
-            console.log('锄头点击效果已初始化');
+            // ⚠️ 关键修复：不使用 capture: true，改用冒泡阶段（默认）
+            // 这样链接的点击事件可以先被处理，光标效果作为装饰不干扰交互
+            document.addEventListener('mousedown', handleMouseDown, false);
+            document.addEventListener('mouseup', handleMouseUp, false);
+            document.addEventListener('mousemove', handleMouseMove, { passive: true });
+            document.addEventListener('touchstart', handleTouchStart, { passive: true });
+            document.addEventListener('touchend', handleTouchEnd, { passive: true });
+            document.addEventListener('touchmove', handleTouchMove, { passive: true });
           }
           
           // 在多个时机初始化
@@ -1777,6 +2243,200 @@
           }
           
         },
+        // 移动端侧边栏遮罩层处理
+        function(hook, vm) {
+          function closeSidebar() {
+            const isMobile = window.matchMedia('(max-width: 768px)').matches;
+            if (!isMobile) return;
+            
+            // 立即关闭侧边栏
+            if (document.body.classList.contains('close')) {
+              // 第1步：立即移除 close 类
+              document.body.classList.remove('close');
+              
+              // 第2步：强制隐藏侧边栏（包括框架）
+              const sidebar = document.querySelector('.sidebar');
+              if (sidebar) {
+                sidebar.style.setProperty('transform', 'translateX(-100%)', 'important');
+                sidebar.style.setProperty('visibility', 'hidden', 'important');
+                sidebar.style.setProperty('opacity', '0', 'important');
+              }
+              
+              // 第3步：强制隐藏遮罩层
+              const overlay = document.getElementById('sidebar-overlay');
+              if (overlay) {
+                overlay.classList.remove('show');
+                overlay.style.setProperty('display', 'none', 'important');
+                overlay.style.setProperty('opacity', '0', 'important');
+                overlay.style.setProperty('visibility', 'hidden', 'important');
+              }
+              
+              // 第4步：更新图标状态
+              const toggleButton = document.querySelector('button.sidebar-toggle');
+              if (toggleButton) {
+                const icon = toggleButton.querySelector('.stardew-toggle-icon');
+                if (icon) {
+                  icon.style.transform = 'rotate(0deg)';
+                }
+                toggleButton.setAttribute('data-sidebar-closed', 'true');
+                toggleButton.style.setProperty('--icon-rotate', 'rotate(180deg)');
+              }
+              
+              // 第5步：二次检查，确保 close 类被移除（防止其他代码重新添加）
+              requestAnimationFrame(function() {
+                if (document.body.classList.contains('close')) {
+                  document.body.classList.remove('close');
+                }
+              });
+            }
+          }
+          
+          function initSidebarOverlay() {
+            const overlay = document.getElementById('sidebar-overlay');
+            if (!overlay) return;
+
+            // 点击遮罩层关闭侧边栏
+            overlay.addEventListener('click', function(e) {
+              e.preventDefault();
+              e.stopPropagation();
+              closeSidebar();
+            });
+
+            // 触摸事件支持
+            overlay.addEventListener('touchstart', function(e) {
+              e.preventDefault();
+            }, { passive: false });
+
+            overlay.addEventListener('touchend', function(e) {
+              e.preventDefault();
+              e.stopPropagation();
+              closeSidebar();
+            }, { passive: false });
+          }
+          
+          // 移动端：点击内容区域关闭侧边栏
+          let contentClickHandler = null;
+          let contentTouchHandler = null;
+          
+          function handleContentClick(e) {
+            const isMobile = window.matchMedia('(max-width: 768px)').matches;
+            if (!isMobile) return;
+            
+            // 如果侧边栏是打开的，点击内容区域应该关闭它
+            if (document.body.classList.contains('close')) {
+              const target = e.target;
+              
+              // 检查点击的是否在侧边栏内（绝对不能关闭）
+              if (target.closest('.sidebar')) {
+                return; // 点击侧边栏区域，不关闭，也不阻止事件
+              }
+              
+              // 检查点击的是否是遮罩层（应该关闭，但遮罩层有自己的处理逻辑）
+              if (target.closest('.sidebar-overlay')) {
+                return; // 遮罩层有自己的处理逻辑
+              }
+              
+              // 检查点击的是否是切换按钮（应该关闭，但按钮有自己的处理逻辑）
+              if (target.closest('.sidebar-toggle')) {
+                return; // 按钮有自己的处理逻辑
+              }
+              
+              // 检查点击的是否是链接或其他交互元素
+              const isInteractive = target.tagName === 'A' || 
+                                   target.tagName === 'BUTTON' || 
+                                   target.tagName === 'INPUT' ||
+                                   target.tagName === 'TEXTAREA' ||
+                                   target.tagName === 'SELECT' ||
+                                   target.closest('a') || 
+                                   target.closest('button') ||
+                                   target.closest('input') ||
+                                   target.closest('textarea') ||
+                                   target.closest('select');
+              
+              // 如果不是交互元素，关闭侧边栏（不阻止事件，让其他元素正常响应）
+              if (!isInteractive) {
+                closeSidebar();
+              }
+            }
+          }
+          
+          function handleContentTouch(e) {
+            const isMobile = window.matchMedia('(max-width: 768px)').matches;
+            if (!isMobile) return;
+            
+            // 如果侧边栏是打开的，触摸内容区域应该关闭它
+            if (document.body.classList.contains('close')) {
+              const target = e.target;
+              
+              // 检查点击的是否在侧边栏内（绝对不能关闭）
+              if (target.closest('.sidebar')) {
+                return; // 点击侧边栏区域，不关闭
+              }
+              
+              // 检查点击的是否是遮罩层（应该关闭，但遮罩层有自己的处理逻辑）
+              if (target.closest('.sidebar-overlay')) {
+                return; // 遮罩层有自己的处理逻辑
+              }
+              
+              // 检查点击的是否是切换按钮（应该关闭，但按钮有自己的处理逻辑）
+              if (target.closest('.sidebar-toggle')) {
+                return; // 按钮有自己的处理逻辑
+              }
+              
+              const isInteractive = target.tagName === 'A' || 
+                                   target.tagName === 'BUTTON' || 
+                                   target.tagName === 'INPUT' ||
+                                   target.tagName === 'TEXTAREA' ||
+                                   target.tagName === 'SELECT' ||
+                                   target.closest('a') || 
+                                   target.closest('button') ||
+                                   target.closest('input') ||
+                                   target.closest('textarea') ||
+                                   target.closest('select');
+              
+              if (!isInteractive) {
+                // 立即关闭，不延迟
+                if (document.body.classList.contains('close')) {
+                  closeSidebar();
+                }
+              }
+            }
+          }
+          
+          function initContentClickHandler() {
+            const isMobile = window.matchMedia('(max-width: 768px)').matches;
+            if (!isMobile) return;
+            
+            const content = document.querySelector('.content');
+            if (!content) return;
+            
+            // 移除旧的事件监听器（如果存在）
+            if (contentClickHandler) {
+              content.removeEventListener('click', contentClickHandler);
+            }
+            if (contentTouchHandler) {
+              content.removeEventListener('touchstart', contentTouchHandler);
+            }
+            
+            // 创建新的事件处理器
+            contentClickHandler = handleContentClick;
+            contentTouchHandler = handleContentTouch;
+            
+            // 添加新的事件监听器（不使用 capture 模式，避免拦截正常点击）
+            content.addEventListener('click', contentClickHandler, false);
+            content.addEventListener('touchstart', contentTouchHandler, { passive: true });
+          }
+
+          hook.mounted(function() {
+            setTimeout(initSidebarOverlay, 100);
+            setTimeout(initContentClickHandler, 200);
+          });
+          
+          hook.doneEach(function() {
+            setTimeout(initSidebarOverlay, 100);
+            setTimeout(initContentClickHandler, 200);
+          });
+        },
         // 优化左下角侧边栏切换按钮
         function(hook, vm) {
           function styleToggleButton() {
@@ -1784,7 +2444,15 @@
             if (toggleButton && !toggleButton.hasAttribute('data-stardew-styled')) {
               toggleButton.setAttribute('data-stardew-styled', 'true');
               
-              // 强制应用样式
+              // 移动端触摸优化
+              toggleButton.style.setProperty('-webkit-tap-highlight-color', 'rgba(127, 186, 0, 0.3)', 'important');
+              toggleButton.style.setProperty('touch-action', 'manipulation', 'important');
+              toggleButton.style.setProperty('pointer-events', 'auto', 'important');
+              toggleButton.style.setProperty('cursor', 'pointer', 'important');
+              toggleButton.style.setProperty('user-select', 'none', 'important');
+              toggleButton.style.setProperty('-webkit-user-select', 'none', 'important');
+              
+              // 强制应用样式（扩大点击区域）
               toggleButton.style.cssText += `
                 position: fixed !important;
                 left: 0 !important;
@@ -1801,13 +2469,20 @@
                 border-top-left-radius: 12px !important;
                 border-top-right-radius: 12px !important;
                 box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 -1px 0 rgba(0, 0, 0, 0.2) !important;
-                padding: 10px 12px !important;
+                padding: 12px !important;
+                min-width: 64px !important;
+                min-height: 64px !important;
                 color: #f5efe5 !important;
                 font-family: 'Cabin', 'PingFang SC', 'Microsoft YaHei', sans-serif !important;
                 font-size: 14px !important;
                 font-weight: 600 !important;
                 text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3) !important;
-                z-index: 30 !important;
+                z-index: 9999 !important;
+                pointer-events: auto !important;
+                cursor: pointer !important;
+                user-select: none !important;
+                -webkit-user-select: none !important;
+                box-sizing: border-box !important;
               `;
               
               // 隐藏原有的三条线
@@ -1843,39 +2518,22 @@
               }
               
               // 更新图标方向函数
-              let isSidebarClosed = false;
-              
               function updateIconDirection() {
+                // 如果正在点击侧边栏，不更新图标状态
+                if (isClickingInSidebar) {
+                  return;
+                }
+                
                 const sidebar = document.querySelector('.sidebar');
                 const icon = toggleButton.querySelector('.stardew-toggle-icon');
                 
                 if (!sidebar) return;
                 
-                const sidebarStyle = window.getComputedStyle(sidebar);
-                const sidebarLeft = sidebarStyle.left;
-                const sidebarTransform = sidebarStyle.transform;
-                const rect = sidebar.getBoundingClientRect();
+                // 只检查 body 是否有 close 类（这是唯一可靠的判断依据）
+                const isClosed = document.body.classList.contains('close');
                 
-                // 检测侧边栏是否收起
-                let isClosed = false;
-                
-                // 方式1: 检查 left 位置
-                if (sidebarLeft && parseInt(sidebarLeft) < 0) {
-                  isClosed = true;
-                }
-                // 方式2: 检查 transform
-                else if (sidebarTransform && sidebarTransform !== 'none' && sidebarTransform.includes('-')) {
-                  isClosed = true;
-                }
-                // 方式3: 检查实际位置
-                else if (rect.left < -100) {
-                  isClosed = true;
-                }
-                
-                // 如果状态改变，更新图标
-                if (isClosed !== isSidebarClosed) {
-                  isSidebarClosed = isClosed;
-                  
+                // 移动端：侧边栏打开时，图标应该旋转
+                // 桌面端：侧边栏打开时（body.close），图标也应该旋转
                   if (isClosed) {
                     toggleButton.setAttribute('data-sidebar-closed', 'true');
                     if (icon) {
@@ -1888,83 +2546,314 @@
                       icon.style.transform = 'rotate(0deg)';
                     }
                     toggleButton.style.setProperty('--icon-rotate', 'rotate(0deg)');
-                  }
                 }
               }
               
-              // 直接监听按钮点击，切换状态
-              toggleButton.addEventListener('click', function() {
-                // 延迟检查，等待Docsify完成切换
-                setTimeout(function() {
-                  isSidebarClosed = !isSidebarClosed;
-                  const icon = toggleButton.querySelector('.stardew-toggle-icon');
-                  
-                  if (isSidebarClosed) {
-                    toggleButton.setAttribute('data-sidebar-closed', 'true');
-                    if (icon) {
-                      icon.style.transform = 'rotate(180deg)';
-                    }
-                    toggleButton.style.setProperty('--icon-rotate', 'rotate(180deg)');
+              // 检测是否为移动设备
+              const isMobile = window.matchMedia('(max-width: 768px)').matches;
+              
+              // 更新 UI 状态的函数（不触发切换，只更新显示，立即执行）
+              function updateSidebarUI() {
+                const isClosed = document.body.classList.contains('close');
+                const overlay = document.getElementById('sidebar-overlay');
+                
+                // 立即更新遮罩层（仅移动端）
+                if (overlay && isMobile) {
+                  if (isClosed) {
+                    overlay.classList.add('show');
                   } else {
-                    toggleButton.setAttribute('data-sidebar-closed', 'false');
-                    if (icon) {
-                      icon.style.transform = 'rotate(0deg)';
-                    }
-                    toggleButton.style.setProperty('--icon-rotate', 'rotate(0deg)');
+                    overlay.classList.remove('show');
                   }
-                  
-                  // 再次检查实际状态
-                  setTimeout(updateIconDirection, 100);
-                }, 50);
-              });
-              
-              // 监听侧边栏变化
-              const sidebarObserver = new MutationObserver(function(mutations) {
-                let shouldUpdate = false;
-                mutations.forEach(function(mutation) {
-                  if (mutation.type === 'attributes' && 
-                      (mutation.attributeName === 'style' || mutation.attributeName === 'class')) {
-                    shouldUpdate = true;
-                  }
-                });
-                if (shouldUpdate) {
-                  setTimeout(updateIconDirection, 50);
                 }
-              });
-              
-              const sidebar = document.querySelector('.sidebar');
-              if (sidebar) {
-                sidebarObserver.observe(sidebar, {
-                  attributes: true,
-                  attributeFilter: ['style', 'class']
-                });
+                
+                // 立即更新图标方向，不延迟
                 updateIconDirection();
               }
               
-              // 监听整个文档的变化（Docsify可能修改body或其他元素）
-              const bodyObserver = new MutationObserver(function() {
-                setTimeout(updateIconDirection, 100);
+              // 移动端：手动切换侧边栏（立即响应，无延迟）
+              function toggleSidebarMobile() {
+                const sidebar = document.querySelector('.sidebar');
+                const isCurrentlyClosed = document.body.classList.contains('close');
+                
+                if (isCurrentlyClosed) {
+                  // 当前侧边栏是打开的，需要关闭
+                  const isMobile = window.matchMedia('(max-width: 768px)').matches;
+                  if (!isMobile) {
+                    return;
+                  }
+                  
+                  // 第1步：立即移除 close 类
+                  document.body.classList.remove('close');
+                  
+                  // 第2步：强制隐藏侧边栏（包括框架）
+                  if (sidebar) {
+                    sidebar.style.setProperty('transform', 'translateX(-100%)', 'important');
+                    sidebar.style.setProperty('visibility', 'hidden', 'important');
+                    sidebar.style.setProperty('opacity', '0', 'important');
+                  }
+                  
+                  // 第3步：强制隐藏遮罩层
+                  const overlay = document.getElementById('sidebar-overlay');
+                  if (overlay) {
+                    overlay.classList.remove('show');
+                    overlay.style.setProperty('display', 'none', 'important');
+                    overlay.style.setProperty('opacity', '0', 'important');
+                    overlay.style.setProperty('visibility', 'hidden', 'important');
+                  }
+                  
+                  // 第4步：更新图标状态
+                  const toggleButton = document.querySelector('button.sidebar-toggle');
+                  if (toggleButton) {
+                    toggleButton.setAttribute('data-sidebar-closed', 'true');
+                    toggleButton.style.setProperty('--icon-rotate', 'rotate(180deg)');
+                  }
+                  
+                  // 第5步：二次检查，确保 close 类被移除
+                  requestAnimationFrame(function() {
+                    if (document.body.classList.contains('close')) {
+                      document.body.classList.remove('close');
+                    }
+                  });
+                } else {
+                  // 当前侧边栏是关闭的，需要打开
+                  document.body.classList.add('close');
+                  
+                  if (sidebar) {
+                    // 立即确保侧边栏可见
+                    sidebar.style.transform = 'translateX(0)';
+                    sidebar.style.visibility = 'visible';
+                    sidebar.style.opacity = '1';
+                    sidebar.style.display = '';
+                    
+                    // 确保侧边栏内容可见
+                    const sidebarNav = sidebar.querySelector('.sidebar-nav');
+                    if (sidebarNav) {
+                      sidebarNav.style.visibility = 'visible';
+                      sidebarNav.style.opacity = '1';
+                      sidebarNav.style.display = 'block';
+                    }
+                    
+                    // 确保所有链接可见
+                    const allLinks = sidebar.querySelectorAll('a');
+                    allLinks.forEach(function(link) {
+                      link.style.visibility = 'visible';
+                      link.style.opacity = '1';
+                      link.style.display = '';
+                    });
+                    
+                    // 确保所有列表项可见
+                    const allListItems = sidebar.querySelectorAll('li');
+                    allListItems.forEach(function(li) {
+                      li.style.visibility = 'visible';
+                      li.style.opacity = '1';
+                      li.style.display = '';
+                    });
+                    
+                    // 异步检查内容（不阻塞主流程）
+                    requestAnimationFrame(function() {
+                      const sidebarNav = sidebar.querySelector('.sidebar-nav');
+                      if (!sidebarNav || sidebarNav.children.length === 0) {
+                        if (window.Docsify && window.Docsify.getSidebar) {
+                          const vm = window.Docsify.getSidebar();
+                          if (vm && vm.sidebar) {
+                            vm.sidebar.loadSidebar();
+                          }
+                        }
+                      }
+                    });
+                  }
+                  
+                  // 立即更新 UI 状态
+                  updateSidebarUI();
+                }
+              }
+              
+              // 桌面端：让 Docsify 原生处理，只更新 UI
+              // 移动端：需要手动处理，支持轻击
+              if (isMobile) {
+                // 移动端：轻击检测（类似 Mac 触控板轻击）
+                let touchStartTime = 0;
+                let touchStartX = 0;
+                let touchStartY = 0;
+                let hasMoved = false;
+                
+                toggleButton.addEventListener('touchstart', function(e) {
+                  const touch = e.touches[0];
+                  touchStartTime = Date.now();
+                  touchStartX = touch.clientX;
+                  touchStartY = touch.clientY;
+                  hasMoved = false;
+                }, { passive: true });
+                
+                toggleButton.addEventListener('touchmove', function(e) {
+                  // 如果移动距离超过阈值，取消轻击
+                  if (e.touches.length > 0 && touchStartTime > 0) {
+                    const touch = e.touches[0];
+                    const moveX = Math.abs(touch.clientX - touchStartX);
+                    const moveY = Math.abs(touch.clientY - touchStartY);
+                    // 如果移动超过 15px，不算轻击
+                    if (moveX > 15 || moveY > 15) {
+                      hasMoved = true;
+                    }
+                  }
+                }, { passive: true });
+                
+                toggleButton.addEventListener('touchend', function(e) {
+                  if (touchStartTime === 0) return;
+                  
+                  const touchEndTime = Date.now();
+                  const touchDuration = touchEndTime - touchStartTime;
+                  
+                  // 轻击检测：时间小于 400ms，移动距离小于 15px（更宽松的条件）
+                  if (touchDuration < 400 && !hasMoved) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    toggleSidebarMobile();
+                  }
+                  
+                  // 重置
+                  touchStartTime = 0;
+                  hasMoved = false;
+                }, { passive: false });
+                
+                // 移动端：点击事件也处理（防止某些设备同时触发）
+                toggleButton.addEventListener('click', function(e) {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  toggleSidebarMobile();
+                });
+              } else {
+                // 桌面端：让 Docsify 原生处理切换，我们只更新 UI
+                // 扩大鼠标点击区域
+                toggleButton.style.cursor = 'pointer';
+                toggleButton.style.padding = '12px';
+                
+                // 监听点击事件，但不阻止默认行为，让 Docsify 原生处理切换
+                // 我们只负责更新自定义 UI（图标方向等）
+                toggleButton.addEventListener('click', function(e) {
+                  // 不阻止默认行为，让 Docsify 处理切换
+                  // 使用 setTimeout 确保在 Docsify 处理后再更新 UI
+                  setTimeout(function() {
+                    updateSidebarUI();
+                  }, 0);
+                }, false);
+                
+                // 扩大鼠标悬停区域
+                toggleButton.addEventListener('mouseenter', function() {
+                  this.style.cursor = 'pointer';
+                });
+                
+                // 确保按钮可点击
+                toggleButton.style.pointerEvents = 'auto';
+                toggleButton.style.cursor = 'pointer';
+              }
+              
+              // 防止侧边栏内点击时更新图标状态和关闭侧边栏
+              let isClickingInSidebar = false;
+              let sidebarClickTimeout = null;
+              
+              // 监听侧边栏内的点击事件，阻止事件冒泡（但不阻止链接跳转）
+              const sidebar = document.querySelector('.sidebar');
+              if (sidebar) {
+                // 阻止侧边栏内的点击事件冒泡到内容区域，但允许链接正常工作
+                // 不使用 capture 模式，避免拦截正常点击
+                sidebar.addEventListener('click', function(e) {
+                  // 只阻止事件冒泡，不阻止默认行为（让链接可以跳转）
+                  e.stopPropagation();
+                  
+                  // 清除之前的定时器
+                  if (sidebarClickTimeout) {
+                    clearTimeout(sidebarClickTimeout);
+                  }
+                  
+                  // 设置标志，防止图标状态更新
+                  isClickingInSidebar = true;
+                  
+                  // 延迟重置标志（延长到1秒，确保所有状态更新都完成）
+                  sidebarClickTimeout = setTimeout(function() {
+                    isClickingInSidebar = false;
+                    sidebarClickTimeout = null;
+                  }, 1000);
+                  
+                  // 不阻止默认行为，让链接可以正常跳转
+                }, false);
+                
+                sidebar.addEventListener('touchstart', function(e) {
+                  // 只阻止事件冒泡，不阻止默认行为
+                  e.stopPropagation();
+                  
+                  // 清除之前的定时器
+                  if (sidebarClickTimeout) {
+                    clearTimeout(sidebarClickTimeout);
+                  }
+                  
+                  // 设置标志
+                  isClickingInSidebar = true;
+                  
+                  sidebarClickTimeout = setTimeout(function() {
+                    isClickingInSidebar = false;
+                    sidebarClickTimeout = null;
+                  }, 1000);
+                  
+                  // 不阻止默认行为，让链接可以正常工作
+                }, false);
+                
+                sidebar.addEventListener('touchend', function(e) {
+                  // 只阻止事件冒泡，不阻止默认行为
+                  e.stopPropagation();
+                  // 不调用 e.preventDefault()，让链接可以正常跳转
+                }, false);
+              }
+              
+              // 监听侧边栏变化（但不更新图标，因为点击侧边栏时不应该改变图标状态）
+              // 移除这个 observer，因为它会在点击侧边栏链接时误触发
+              // const sidebarObserver = new MutationObserver(function(mutations) {
+              //   // 不再监听侧边栏变化来更新图标
+              // });
+              
+              // 监听 body class 变化（只监听 class，避免过度触发）
+              let lastCloseState = document.body.classList.contains('close');
+              const bodyClassObserver = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                  if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                    // 如果正在点击侧边栏，不更新图标状态
+                    if (isClickingInSidebar) {
+                      // 恢复之前的状态，防止状态被错误更新
+                      if (lastCloseState !== document.body.classList.contains('close')) {
+                        // 如果状态被改变了，恢复它
+                        if (lastCloseState) {
+                          document.body.classList.add('close');
+                        } else {
+                          document.body.classList.remove('close');
+                        }
+                      }
+                      return;
+                    }
+                    
+                    const currentCloseState = document.body.classList.contains('close');
+                    // 只在状态真正改变时才更新图标
+                    if (currentCloseState !== lastCloseState) {
+                      lastCloseState = currentCloseState;
+                      setTimeout(function() {
+                        // 再次检查是否正在点击侧边栏
+                        if (!isClickingInSidebar) {
+                          updateIconDirection();
+                        }
+                      }, 50);
+                    }
+                  }
+                });
               });
-              bodyObserver.observe(document.body, {
-                childList: true,
-                subtree: true,
+              bodyClassObserver.observe(document.body, {
                 attributes: true,
-                attributeFilter: ['style', 'class']
+                attributeFilter: ['class']
               });
-              
-              // 点击按钮时也更新
-              toggleButton.addEventListener('click', function() {
-                setTimeout(updateIconDirection, 200);
-                setTimeout(updateIconDirection, 400);
-              });
-              
-              // 定期检查（防止遗漏）
-              setInterval(updateIconDirection, 300);
               
               // 监听窗口resize
               window.addEventListener('resize', updateIconDirection);
               
-              // 悬停效果
+              // 悬停效果（仅非触摸设备）
+              if (window.matchMedia('(hover: hover)').matches) {
               toggleButton.addEventListener('mouseenter', function() {
                 this.style.background = 'linear-gradient(135deg, #a5896b 0%, #8b6f47 100%)';
                 this.style.transform = 'translateY(-2px)';
@@ -1976,6 +2865,55 @@
                 this.style.transform = '';
                 this.style.boxShadow = '0 3px 6px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 -1px 0 rgba(0, 0, 0, 0.2)';
               });
+              }
+              
+              // 触摸设备：点击反馈效果（在 touchend 中处理，避免与切换逻辑冲突）
+              toggleButton.addEventListener('touchstart', function(e) {
+                // 只在触摸开始时改变透明度，不阻止事件
+                this.style.opacity = '0.7';
+              }, { passive: true });
+              
+              // 监听 body 的 class 变化，同步更新图标和遮罩层
+              let lastBodyCloseState = document.body.classList.contains('close');
+              const bodyClassObserverForUI = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                  if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                    // 如果正在点击侧边栏，不更新任何状态
+                    if (isClickingInSidebar) {
+                      return;
+                    }
+                    
+                    const currentCloseState = document.body.classList.contains('close');
+                    // 只在状态真正改变时才更新
+                    if (currentCloseState !== lastBodyCloseState) {
+                      lastBodyCloseState = currentCloseState;
+                      
+                      setTimeout(function() {
+                        // 再次检查是否正在点击侧边栏
+                        if (!isClickingInSidebar) {
+                          updateIconDirection();
+                          const overlay = document.getElementById('sidebar-overlay');
+                          if (overlay) {
+                            if (currentCloseState) {
+                              overlay.classList.add('show');
+                            } else {
+                              overlay.classList.remove('show');
+                            }
+                          }
+                        }
+                      }, 50);
+                    }
+                  }
+                });
+              });
+              
+              bodyClassObserverForUI.observe(document.body, {
+                attributes: true,
+                attributeFilter: ['class']
+              });
+              
+              // 初始更新
+              updateIconDirection();
             }
           }
           
@@ -2215,6 +3153,115 @@
           
           hook.doneEach(function() {
             setTimeout(addH2Icons, 300);
+          });
+        },
+        
+        // 增强侧边栏子标题点击跳转功能
+        function(hook, vm) {
+          hook.doneEach(function() {
+            setTimeout(function() {
+              // 获取所有侧边栏链接
+              const sidebarLinks = document.querySelectorAll('.sidebar-nav a');
+              
+              sidebarLinks.forEach(function(link) {
+                const href = link.getAttribute('href');
+                
+                // 原有的锚点处理逻辑
+                const hasQueryId = href && href.includes('?id=');
+                const isPureAnchor = href && href.startsWith('#') && !href.startsWith('#/');
+                
+                if (hasQueryId || isPureAnchor) {
+                  // 需要我们处理的锚点链接
+                  link.removeEventListener('click', handleAnchorLinkClick);
+                  link.addEventListener('click', handleAnchorLinkClick);
+                }
+              });
+              
+              function handleAnchorLinkClick(e) {
+                const href = this.getAttribute('href');
+                
+                let targetId = '';
+                
+                // 处理不同格式的锚点链接：
+                // 1. Docsify 查询参数格式: #/docs/?id=xxx 或 #/docs/?id=%e5%85%b3%e4%ba%8e%e6%9c%ac%e7%ab%99
+                // 2. 纯锚点: #heading-id
+                
+                if (href && href.includes('?id=')) {
+                  // 提取 id 参数
+                  const match = href.match(/[?&]id=([^&]+)/);
+                  if (match && match[1]) {
+                    targetId = decodeURIComponent(match[1]);
+                  }
+                } else if (href && href.startsWith('#') && !href.startsWith('#/')) {
+                  // 纯锚点格式
+                  targetId = href.substring(1);
+                }
+                
+                if (targetId) {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  
+                  // 尝试多种方式查找目标元素
+                  // 1. 直接通过 ID 查找
+                  let targetElement = document.getElementById(targetId);
+                  
+                  // 2. 如果找不到，尝试 Docsify 生成的 ID 格式（小写+连字符）
+                  if (!targetElement) {
+                    const docsifyId = targetId.toLowerCase().replace(/\s+/g, '-');
+                    targetElement = document.getElementById(docsifyId);
+                  }
+                  
+                  // 3. 通过 data-id 属性查找
+                  if (!targetElement) {
+                    targetElement = document.querySelector('[data-id="' + targetId + '"]');
+                  }
+                  
+                  // 4. 通过文本内容模糊匹配查找标题
+                  if (!targetElement) {
+                    const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+                    for (let i = 0; i < headings.length; i++) {
+                      const heading = headings[i];
+                      const headingText = heading.textContent.trim();
+                      if (headingText === targetId || headingText.includes(targetId) || targetId.includes(headingText)) {
+                        targetElement = heading;
+                        break;
+                      }
+                    }
+                  }
+                  
+                  if (targetElement) {
+                    // 平滑滚动到目标元素
+                    const contentElement = document.querySelector('.content');
+                    
+                    if (contentElement) {
+                      // 计算目标元素相对于内容区的精确位置
+                      const contentRect = contentElement.getBoundingClientRect();
+                      const targetRect = targetElement.getBoundingClientRect();
+                      const currentScroll = contentElement.scrollTop;
+                      const targetTop = currentScroll + targetRect.top - contentRect.top - 80;
+                      
+                      contentElement.scrollTo({
+                        top: targetTop,
+                        behavior: 'smooth'
+                      });
+                      
+                      // 高亮目标元素（可选）
+                      targetElement.style.transition = 'background-color 0.5s ease';
+                      targetElement.style.backgroundColor = 'rgba(127, 186, 0, 0.2)';
+                      setTimeout(function() {
+                        targetElement.style.backgroundColor = '';
+                      }, 1500);
+                      
+                    } else {
+                      targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                      });
+                    }
+                  }
+                }
+              }
+            }, 300);
           });
         }
       ]
