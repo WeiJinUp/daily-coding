@@ -1,0 +1,196 @@
+/* Let it Snow 雪花效果样式 - 星露谷物语风格 */
+
+/* 雪花按钮 */
+.snow-toggle-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  background: linear-gradient(180deg, #6bb3e0 0%, #5a9bc8 100%);
+  border: 3px solid #3d2817;
+  border-radius: 12px;
+  padding: 10px 18px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 
+    0 4px 0 #3d2817,
+    0 6px 8px rgba(61, 40, 23, 0.3);
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Cabin', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  letter-spacing: 0.3px;
+}
+
+.snow-toggle-btn:hover {
+  background: linear-gradient(180deg, #7bc4f0 0%, #6bb3e0 100%);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 6px 0 #3d2817,
+    0 8px 12px rgba(61, 40, 23, 0.4);
+}
+
+.snow-toggle-btn:active {
+  transform: translateY(2px);
+  box-shadow: 
+    0 2px 0 #3d2817,
+    0 4px 6px rgba(61, 40, 23, 0.3);
+}
+
+.snow-toggle-btn.active {
+  background: linear-gradient(180deg, #9fd24a 0%, #7fba00 100%);
+}
+
+.snow-toggle-btn.active:hover {
+  background: linear-gradient(180deg, #b0e05a 0%, #8fca10 100%);
+}
+
+.snow-icon {
+  font-size: 18px;
+  display: inline-block;
+  line-height: 1;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.2));
+}
+
+.snow-toggle-btn.active .snow-icon {
+  animation: snowIconFloat 2s ease-in-out infinite;
+}
+
+@keyframes snowIconFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-3px) rotate(-5deg);
+  }
+  75% {
+    transform: translateY(-3px) rotate(5deg);
+  }
+}
+
+/* 雪花容器 */
+.snow-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9998;
+  overflow: hidden;
+}
+
+/* 雪花样式 */
+.snowflake {
+  position: absolute;
+  top: -20px;
+  color: #ffffff;
+  font-size: 20px;
+  user-select: none;
+  cursor: default;
+  animation-name: snowfall;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.9)) 
+          drop-shadow(0 0 6px rgba(107, 179, 224, 0.3));
+  text-shadow: 0 0 2px rgba(255, 255, 255, 0.8);
+}
+
+/* 雪花旋转动画 */
+.snowflake.spin {
+  animation-name: snowfall, spin;
+}
+
+/* 雪花摇摆动画 */
+.snowflake.swing {
+  animation-name: snowfall, swing;
+}
+
+/* 雪花下落动画 */
+@keyframes snowfall {
+  0% {
+    transform: translateY(0vh);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+/* 旋转动画 */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 摇摆动画 */
+@keyframes swing {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(15px);
+  }
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .snow-toggle-btn {
+    bottom: 16px;
+    right: 16px;
+    padding: 8px 14px;
+    font-size: 13px;
+    box-shadow: 
+      0 3px 0 #3d2817,
+      0 5px 6px rgba(61, 40, 23, 0.3);
+  }
+  
+  .snow-toggle-btn:hover {
+    box-shadow: 
+      0 4px 0 #3d2817,
+      0 6px 8px rgba(61, 40, 23, 0.4);
+  }
+  
+  .snow-toggle-btn:active {
+    box-shadow: 
+      0 1px 0 #3d2817,
+      0 3px 4px rgba(61, 40, 23, 0.3);
+  }
+  
+  .snow-icon {
+    font-size: 16px;
+  }
+  
+  .snowflake {
+    font-size: 16px;
+  }
+}
+
+/* 性能优化 */
+.snow-container {
+  will-change: transform;
+}
+
+.snowflake {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
