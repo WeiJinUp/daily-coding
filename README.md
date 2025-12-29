@@ -71,6 +71,8 @@
 
 访问我们的文档网站：**https://WeiJinUp.github.io/daily-coding/**
 
+> 💡 **彩蛋**：在文档网站中，点击右下角的 "Let it snow" 按钮，体验雪花飘落效果！这是参考 [Google AI Studio](https://aistudio.google.com/) 的雪花功能实现的 1:1 复刻。
+
 ### 本地运行
 
 ```bash
