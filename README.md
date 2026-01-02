@@ -23,13 +23,13 @@
 - **知识分享** - 将学习过程中的收获整理成文，帮助他人少走弯路
 - **开源精神** - 所有代码和文档开源，欢迎交流与讨论
 - **实战导向** - 不仅讲原理，更注重实际应用场景
-- **🔄 持续更新** - 持续学习，持续沉淀，持续进步
+- **持续更新** - 持续学习，持续沉淀，持续进步
 
 ---
 
 ## 内容导航
 
-### 🧮 算法与数据结构
+### 算法与数据结构
 
 记录 LeetCode 刷题过程中的解题思路、心得体会与知识总结。
 
@@ -71,7 +71,7 @@
 
 访问我们的文档网站：**https://WeiJinUp.github.io/daily-coding/**
 
-> 💡 **彩蛋**：在文档网站中，点击右下角的 "Let it snow" 按钮，体验雪花飘落效果！这是参考 [Google AI Studio](https://aistudio.google.com/) 的雪花功能实现的 1:1 复刻。
+> ❄️ **彩蛋**：在文档网站中，点击右下角的 "Let it snow" 按钮，体验雪花飘落效果！这是参考 [Google AI Studio](https://aistudio.google.com/) 的雪花功能实现的 1:1 复刻。
 
 ### 本地运行
 
@@ -152,7 +152,7 @@ daily-coding/
 
 - 💬 [GitHub Issues](https://github.com/WeiJinUp/daily-coding/issues) - 提问题、提建议
 - 🐛 [Bug Report](https://github.com/WeiJinUp/daily-coding/issues/new?template=bug_report.md) - 报告 Bug
-- [Feature Request](https://github.com/WeiJinUp/daily-coding/issues/new?template=feature_request.md) - 提新功能
+- 🎉 [Feature Request](https://github.com/WeiJinUp/daily-coding/issues/new?template=feature_request.md) - 提新功能
 
 ---
 
@@ -165,7 +165,7 @@ daily-coding/
 ## 联系方式
 
 - **作者**：WeiJinUp
-- **邮箱**：your.email@example.com
+- **邮箱**：18340309128@163.com
 - **GitHub**：[@WeiJinUp](https://github.com/WeiJinUp)
 
 ---
