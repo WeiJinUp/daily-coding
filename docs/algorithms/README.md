@@ -15,15 +15,6 @@
 
 ## LeetCode 题解
 
-### 按难度分类
-
-#### 简单题（Easy）
-- [Two Sum（两数之和）](../../src/main/java/algorithms/leetcode/TwoSum.java) - 哈希表的经典应用
-
-#### 中等题（Medium）
-*持续更新中...*
-
-#### 困难题（Hard）
 *持续更新中...*
 
 ---
